@@ -1,0 +1,26 @@
+[
+    {
+        "id": 260,
+        "ring": 1,
+        "username": "dollysmittel",
+        "is_active": true,
+        "image": null,
+        "purchase": 33.63999938964844,
+        "purchase_array": [
+            {
+                "id": 104,
+                "unique_id": "64a90b3f06dc0",
+                "amount": 33.64,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 15,
+                "rv": 15,
+                "created_at": "2023-07-08 01:07:43",
+                "updated_at": "2023-07-08 01:07:43"
+            }
+        ],
+        "pv": "15",
+        "rv": 15,
+        "tree": []
+    }
+]

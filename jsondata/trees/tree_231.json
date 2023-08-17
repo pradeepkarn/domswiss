@@ -1,0 +1,26 @@
+[
+    {
+        "id": 287,
+        "ring": 1,
+        "username": "sirnick@zero",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 248,
+        "ring": 1,
+        "username": "sky1",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

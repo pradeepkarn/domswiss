@@ -1,0 +1,1222 @@
+[
+    {
+      "name": "Afghanistan",
+      "code": "AF",
+      "tax": 10
+    },
+    {
+      "name": "land Islands",
+      "code": "AX",
+      "tax": 10
+    },
+    {
+      "name": "Albania",
+      "code": "AL",
+      "tax": 10
+    },
+    {
+      "name": "Algeria",
+      "code": "DZ",
+      "tax": 10
+    },
+    {
+      "name": "American Samoa",
+      "code": "AS",
+      "tax": 10
+    },
+    {
+      "name": "AndorrA",
+      "code": "AD",
+      "tax": 10
+    },
+    {
+      "name": "Angola",
+      "code": "AO",
+      "tax": 10
+    },
+    {
+      "name": "Anguilla",
+      "code": "AI",
+      "tax": 10
+    },
+    {
+      "name": "Antarctica",
+      "code": "AQ",
+      "tax": 10
+    },
+    {
+      "name": "Antigua and Barbuda",
+      "code": "AG",
+      "tax": 10
+    },
+    {
+      "name": "Argentina",
+      "code": "AR",
+      "tax": 10
+    },
+    {
+      "name": "Armenia",
+      "code": "AM",
+      "tax": 10
+    },
+    {
+      "name": "Aruba",
+      "code": "AW",
+      "tax": 10
+    },
+    {
+      "name": "Australia",
+      "code": "AU",
+      "tax": 10
+    },
+    {
+      "name": "Austria",
+      "code": "AT",
+      "tax": 10
+    },
+    {
+      "name": "Azerbaijan",
+      "code": "AZ",
+      "tax": 10
+    },
+    {
+      "name": "Bahamas",
+      "code": "BS",
+      "tax": 10
+    },
+    {
+      "name": "Bahrain",
+      "code": "BH",
+      "tax": 10
+    },
+    {
+      "name": "Bangladesh",
+      "code": "BD",
+      "tax": 10
+    },
+    {
+      "name": "Barbados",
+      "code": "BB",
+      "tax": 10
+    },
+    {
+      "name": "Belarus",
+      "code": "BY",
+      "tax": 10
+    },
+    {
+      "name": "Belgium",
+      "code": "BE",
+      "tax": 10
+    },
+    {
+      "name": "Belize",
+      "code": "BZ",
+      "tax": 10
+    },
+    {
+      "name": "Benin",
+      "code": "BJ",
+      "tax": 10
+    },
+    {
+      "name": "Bermuda",
+      "code": "BM",
+      "tax": 10
+    },
+    {
+      "name": "Bhutan",
+      "code": "BT",
+      "tax": 10
+    },
+    {
+      "name": "Bolivia",
+      "code": "BO",
+      "tax": 10
+    },
+    {
+      "name": "Bosnia and Herzegovina",
+      "code": "BA",
+      "tax": 10
+    },
+    {
+      "name": "Botswana",
+      "code": "BW",
+      "tax": 10
+    },
+    {
+      "name": "Bouvet Island",
+      "code": "BV",
+      "tax": 10
+    },
+    {
+      "name": "Brazil",
+      "code": "BR",
+      "tax": 10
+    },
+    {
+      "name": "British Indian Ocean Territory",
+      "code": "IO",
+      "tax": 10
+    },
+    {
+      "name": "Brunei Darussalam",
+      "code": "BN",
+      "tax": 10
+    },
+    {
+      "name": "Bulgaria",
+      "code": "BG",
+      "tax": 10
+    },
+    {
+      "name": "Burkina Faso",
+      "code": "BF",
+      "tax": 10
+    },
+    {
+      "name": "Burundi",
+      "code": "BI",
+      "tax": 10
+    },
+    {
+      "name": "Cambodia",
+      "code": "KH",
+      "tax": 10
+    },
+    {
+      "name": "Cameroon",
+      "code": "CM",
+      "tax": 10
+    },
+    {
+      "name": "Canada",
+      "code": "CA",
+      "tax": 10
+    },
+    {
+      "name": "Cape Verde",
+      "code": "CV",
+      "tax": 10
+    },
+    {
+      "name": "Cayman Islands",
+      "code": "KY",
+      "tax": 10
+    },
+    {
+      "name": "Central African Republic",
+      "code": "CF",
+      "tax": 10
+    },
+    {
+      "name": "Chad",
+      "code": "TD",
+      "tax": 10
+    },
+    {
+      "name": "Chile",
+      "code": "CL",
+      "tax": 10
+    },
+    {
+      "name": "China",
+      "code": "CN",
+      "tax": 10
+    },
+    {
+      "name": "Christmas Island",
+      "code": "CX",
+      "tax": 10
+    },
+    {
+      "name": "Cocos (Keeling) Islands",
+      "code": "CC",
+      "tax": 10
+    },
+    {
+      "name": "Colombia",
+      "code": "CO",
+      "tax": 10
+    },
+    {
+      "name": "Comoros",
+      "code": "KM",
+      "tax": 10
+    },
+    {
+      "name": "Congo",
+      "code": "CG",
+      "tax": 10
+    },
+    {
+      "name": "Congo, The Democratic Republic of the",
+      "code": "CD",
+      "tax": 10
+    },
+    {
+      "name": "Cook Islands",
+      "code": "CK",
+      "tax": 10
+    },
+    {
+      "name": "Costa Rica",
+      "code": "CR",
+      "tax": 10
+    },
+    {
+      "name": "Cote D\"Ivoire",
+      "code": "CI",
+      "tax": 10
+    },
+    {
+      "name": "Croatia",
+      "code": "HR",
+      "tax": 10
+    },
+    {
+      "name": "Cuba",
+      "code": "CU",
+      "tax": 10
+    },
+    {
+      "name": "Cyprus",
+      "code": "CY",
+      "tax": 10
+    },
+    {
+      "name": "Czech Republic",
+      "code": "CZ",
+      "tax": 10
+    },
+    {
+      "name": "Denmark",
+      "code": "DK",
+      "tax": 10
+    },
+    {
+      "name": "Djibouti",
+      "code": "DJ",
+      "tax": 10
+    },
+    {
+      "name": "Dominica",
+      "code": "DM",
+      "tax": 10
+    },
+    {
+      "name": "Dominican Republic",
+      "code": "DO",
+      "tax": 10
+    },
+    {
+      "name": "Ecuador",
+      "code": "EC",
+      "tax": 10
+    },
+    {
+      "name": "Egypt",
+      "code": "EG",
+      "tax": 10
+    },
+    {
+      "name": "El Salvador",
+      "code": "SV",
+      "tax": 10
+    },
+    {
+      "name": "Equatorial Guinea",
+      "code": "GQ",
+      "tax": 10
+    },
+    {
+      "name": "Eritrea",
+      "code": "ER",
+      "tax": 10
+    },
+    {
+      "name": "Estonia",
+      "code": "EE",
+      "tax": 10
+    },
+    {
+      "name": "Ethiopia",
+      "code": "ET",
+      "tax": 10
+    },
+    {
+      "name": "Falkland Islands (Malvinas)",
+      "code": "FK",
+      "tax": 10
+    },
+    {
+      "name": "Faroe Islands",
+      "code": "FO",
+      "tax": 10
+    },
+    {
+      "name": "Fiji",
+      "code": "FJ",
+      "tax": 10
+    },
+    {
+      "name": "Finland",
+      "code": "FI",
+      "tax": 10
+    },
+    {
+      "name": "France",
+      "code": "FR",
+      "tax": 10
+    },
+    {
+      "name": "French Guiana",
+      "code": "GF",
+      "tax": 10
+    },
+    {
+      "name": "French Polynesia",
+      "code": "PF",
+      "tax": 10
+    },
+    {
+      "name": "French Southern Territories",
+      "code": "TF",
+      "tax": 10
+    },
+    {
+      "name": "Gabon",
+      "code": "GA",
+      "tax": 10
+    },
+    {
+      "name": "Gambia",
+      "code": "GM",
+      "tax": 10
+    },
+    {
+      "name": "Georgia",
+      "code": "GE",
+      "tax": 10
+    },
+    {
+      "name": "Germany",
+      "code": "DE",
+      "tax": 10
+    },
+    {
+      "name": "Ghana",
+      "code": "GH",
+      "tax": 10
+    },
+    {
+      "name": "Gibraltar",
+      "code": "GI",
+      "tax": 10
+    },
+    {
+      "name": "Greece",
+      "code": "GR",
+      "tax": 10
+    },
+    {
+      "name": "Greenland",
+      "code": "GL",
+      "tax": 10
+    },
+    {
+      "name": "Grenada",
+      "code": "GD",
+      "tax": 10
+    },
+    {
+      "name": "Guadeloupe",
+      "code": "GP",
+      "tax": 10
+    },
+    {
+      "name": "Guam",
+      "code": "GU",
+      "tax": 10
+    },
+    {
+      "name": "Guatemala",
+      "code": "GT",
+      "tax": 10
+    },
+    {
+      "name": "Guernsey",
+      "code": "GG",
+      "tax": 10
+    },
+    {
+      "name": "Guinea",
+      "code": "GN",
+      "tax": 10
+    },
+    {
+      "name": "Guinea-Bissau",
+      "code": "GW",
+      "tax": 10
+    },
+    {
+      "name": "Guyana",
+      "code": "GY",
+      "tax": 10
+    },
+    {
+      "name": "Haiti",
+      "code": "HT",
+      "tax": 10
+    },
+    {
+      "name": "Heard Island and Mcdonald Islands",
+      "code": "HM",
+      "tax": 10
+    },
+    {
+      "name": "Holy See (Vatican City State)",
+      "code": "VA",
+      "tax": 10
+    },
+    {
+      "name": "Honduras",
+      "code": "HN",
+      "tax": 10
+    },
+    {
+      "name": "Hong Kong",
+      "code": "HK",
+      "tax": 10
+    },
+    {
+      "name": "Hungary",
+      "code": "HU",
+      "tax": 10
+    },
+    {
+      "name": "Iceland",
+      "code": "IS",
+      "tax": 10
+    },
+    {
+      "name": "India",
+      "code": "IN",
+      "tax": 10
+    },
+    {
+      "name": "Indonesia",
+      "code": "ID",
+      "tax": 10
+    },
+    {
+      "name": "Iran, Islamic Republic Of",
+      "code": "IR",
+      "tax": 10
+    },
+    {
+      "name": "Iraq",
+      "code": "IQ",
+      "tax": 10
+    },
+    {
+      "name": "Ireland",
+      "code": "IE",
+      "tax": 10
+    },
+    {
+      "name": "Isle of Man",
+      "code": "IM",
+      "tax": 10
+    },
+    {
+      "name": "Israel",
+      "code": "IL",
+      "tax": 10
+    },
+    {
+      "name": "Italy",
+      "code": "IT",
+      "tax": 10
+    },
+    {
+      "name": "Jamaica",
+      "code": "JM",
+      "tax": 10
+    },
+    {
+      "name": "Japan",
+      "code": "JP",
+      "tax": 10
+    },
+    {
+      "name": "Jersey",
+      "code": "JE",
+      "tax": 10
+    },
+    {
+      "name": "Jordan",
+      "code": "JO",
+      "tax": 10
+    },
+    {
+      "name": "Kazakhstan",
+      "code": "KZ",
+      "tax": 10
+    },
+    {
+      "name": "Kenya",
+      "code": "KE",
+      "tax": 10
+    },
+    {
+      "name": "Kiribati",
+      "code": "KI",
+      "tax": 10
+    },
+    {
+      "name": "Korea, Democratic People\"S Republic of",
+      "code": "KP",
+      "tax": 10
+    },
+    {
+      "name": "Korea, Republic of",
+      "code": "KR",
+      "tax": 10
+    },
+    {
+      "name": "Kuwait",
+      "code": "KW",
+      "tax": 10
+    },
+    {
+      "name": "Kyrgyzstan",
+      "code": "KG",
+      "tax": 10
+    },
+    {
+      "name": "Lao People\"S Democratic Republic",
+      "code": "LA",
+      "tax": 10
+    },
+    {
+      "name": "Latvia",
+      "code": "LV",
+      "tax": 10
+    },
+    {
+      "name": "Lebanon",
+      "code": "LB",
+      "tax": 10
+    },
+    {
+      "name": "Lesotho",
+      "code": "LS",
+      "tax": 10
+    },
+    {
+      "name": "Liberia",
+      "code": "LR",
+      "tax": 10
+    },
+    {
+      "name": "Libyan Arab Jamahiriya",
+      "code": "LY",
+      "tax": 10
+    },
+    {
+      "name": "Liechtenstein",
+      "code": "LI",
+      "tax": 10
+    },
+    {
+      "name": "Lithuania",
+      "code": "LT",
+      "tax": 10
+    },
+    {
+      "name": "Luxembourg",
+      "code": "LU",
+      "tax": 10
+    },
+    {
+      "name": "Macao",
+      "code": "MO",
+      "tax": 10
+    },
+    {
+      "name": "Macedonia, The Former Yugoslav Republic of",
+      "code": "MK",
+      "tax": 10
+    },
+    {
+      "name": "Madagascar",
+      "code": "MG",
+      "tax": 10
+    },
+    {
+      "name": "Malawi",
+      "code": "MW",
+      "tax": 10
+    },
+    {
+      "name": "Malaysia",
+      "code": "MY",
+      "tax": 10
+    },
+    {
+      "name": "Maldives",
+      "code": "MV",
+      "tax": 10
+    },
+    {
+      "name": "Mali",
+      "code": "ML",
+      "tax": 10
+    },
+    {
+      "name": "Malta",
+      "code": "MT",
+      "tax": 10
+    },
+    {
+      "name": "Marshall Islands",
+      "code": "MH",
+      "tax": 10
+    },
+    {
+      "name": "Martinique",
+      "code": "MQ",
+      "tax": 10
+    },
+    {
+      "name": "Mauritania",
+      "code": "MR",
+      "tax": 10
+    },
+    {
+      "name": "Mauritius",
+      "code": "MU",
+      "tax": 10
+    },
+    {
+      "name": "Mayotte",
+      "code": "YT",
+      "tax": 10
+    },
+    {
+      "name": "Mexico",
+      "code": "MX",
+      "tax": 10
+    },
+    {
+      "name": "Micronesia, Federated States of",
+      "code": "FM",
+      "tax": 10
+    },
+    {
+      "name": "Moldova, Republic of",
+      "code": "MD",
+      "tax": 10
+    },
+    {
+      "name": "Monaco",
+      "code": "MC",
+      "tax": 10
+    },
+    {
+      "name": "Mongolia",
+      "code": "MN",
+      "tax": 10
+    },
+    {
+      "name": "Montenegro",
+      "code": "ME",
+      "tax": 10
+    },
+    {
+      "name": "Montserrat",
+      "code": "MS",
+      "tax": 10
+    },
+    {
+      "name": "Morocco",
+      "code": "MA",
+      "tax": 10
+    },
+    {
+      "name": "Mozambique",
+      "code": "MZ",
+      "tax": 10
+    },
+    {
+      "name": "Myanmar",
+      "code": "MM",
+      "tax": 10
+    },
+    {
+      "name": "Namibia",
+      "code": "NA",
+      "tax": 10
+    },
+    {
+      "name": "Nauru",
+      "code": "NR",
+      "tax": 10
+    },
+    {
+      "name": "Nepal",
+      "code": "NP",
+      "tax": 10
+    },
+    {
+      "name": "Netherlands",
+      "code": "NL",
+      "tax": 10
+    },
+    {
+      "name": "Netherlands Antilles",
+      "code": "AN",
+      "tax": 10
+    },
+    {
+      "name": "New Caledonia",
+      "code": "NC",
+      "tax": 10
+    },
+    {
+      "name": "New Zealand",
+      "code": "NZ",
+      "tax": 10
+    },
+    {
+      "name": "Nicaragua",
+      "code": "NI",
+      "tax": 10
+    },
+    {
+      "name": "Niger",
+      "code": "NE",
+      "tax": 10
+    },
+    {
+      "name": "Nigeria",
+      "code": "NG",
+      "tax": 10
+    },
+    {
+      "name": "Niue",
+      "code": "NU",
+      "tax": 10
+    },
+    {
+      "name": "Norfolk Island",
+      "code": "NF",
+      "tax": 10
+    },
+    {
+      "name": "Northern Mariana Islands",
+      "code": "MP",
+      "tax": 10
+    },
+    {
+      "name": "Norway",
+      "code": "NO",
+      "tax": 10
+    },
+    {
+      "name": "Oman",
+      "code": "OM",
+      "tax": 10
+    },
+    {
+      "name": "Pakistan",
+      "code": "PK",
+      "tax": 10
+    },
+    {
+      "name": "Palau",
+      "code": "PW",
+      "tax": 10
+    },
+    {
+      "name": "Palestinian Territory, Occupied",
+      "code": "PS",
+      "tax": 10
+    },
+    {
+      "name": "Panama",
+      "code": "PA",
+      "tax": 10
+    },
+    {
+      "name": "Papua New Guinea",
+      "code": "PG",
+      "tax": 10
+    },
+    {
+      "name": "Paraguay",
+      "code": "PY",
+      "tax": 10
+    },
+    {
+      "name": "Peru",
+      "code": "PE",
+      "tax": 10
+    },
+    {
+      "name": "Philippines",
+      "code": "PH",
+      "tax": 10
+    },
+    {
+      "name": "Pitcairn",
+      "code": "PN",
+      "tax": 10
+    },
+    {
+      "name": "Poland",
+      "code": "PL",
+      "tax": 10
+    },
+    {
+      "name": "Portugal",
+      "code": "PT",
+      "tax": 10
+    },
+    {
+      "name": "Puerto Rico",
+      "code": "PR",
+      "tax": 10
+    },
+    {
+      "name": "Qatar",
+      "code": "QA",
+      "tax": 10
+    },
+    {
+      "name": "Reunion",
+      "code": "RE",
+      "tax": 10
+    },
+    {
+      "name": "Romania",
+      "code": "RO",
+      "tax": 10
+    },
+    {
+      "name": "Russian Federation",
+      "code": "RU",
+      "tax": 10
+    },
+    {
+      "name": "RWANDA",
+      "code": "RW",
+      "tax": 10
+    },
+    {
+      "name": "Saint Helena",
+      "code": "SH",
+      "tax": 10
+    },
+    {
+      "name": "Saint Kitts and Nevis",
+      "code": "KN",
+      "tax": 10
+    },
+    {
+      "name": "Saint Lucia",
+      "code": "LC",
+      "tax": 10
+    },
+    {
+      "name": "Saint Pierre and Miquelon",
+      "code": "PM",
+      "tax": 10
+    },
+    {
+      "name": "Saint Vincent and the Grenadines",
+      "code": "VC",
+      "tax": 10
+    },
+    {
+      "name": "Samoa",
+      "code": "WS",
+      "tax": 10
+    },
+    {
+      "name": "San Marino",
+      "code": "SM",
+      "tax": 10
+    },
+    {
+      "name": "Sao Tome and Principe",
+      "code": "ST",
+      "tax": 10
+    },
+    {
+      "name": "Saudi Arabia",
+      "code": "SA",
+      "tax": 10
+    },
+    {
+      "name": "Senegal",
+      "code": "SN",
+      "tax": 10
+    },
+    {
+      "name": "Serbia",
+      "code": "RS",
+      "tax": 10
+    },
+    {
+      "name": "Seychelles",
+      "code": "SC",
+      "tax": 10
+    },
+    {
+      "name": "Sierra Leone",
+      "code": "SL",
+      "tax": 10
+    },
+    {
+      "name": "Singapore",
+      "code": "SG",
+      "tax": 10
+    },
+    {
+      "name": "Slovakia",
+      "code": "SK",
+      "tax": 10
+    },
+    {
+      "name": "Slovenia",
+      "code": "SI",
+      "tax": 10
+    },
+    {
+      "name": "Solomon Islands",
+      "code": "SB",
+      "tax": 10
+    },
+    {
+      "name": "Somalia",
+      "code": "SO",
+      "tax": 10
+    },
+    {
+      "name": "South Africa",
+      "code": "ZA",
+      "tax": 10
+    },
+    {
+      "name": "South Georgia and the South Sandwich Islands",
+      "code": "GS",
+      "tax": 10
+    },
+    {
+      "name": "Spain",
+      "code": "ES",
+      "tax": 10
+    },
+    {
+      "name": "Sri Lanka",
+      "code": "LK",
+      "tax": 10
+    },
+    {
+      "name": "Sudan",
+      "code": "SD",
+      "tax": 10
+    },
+    {
+      "name": "Suriname",
+      "code": "SR",
+      "tax": 10
+    },
+    {
+      "name": "Svalbard and Jan Mayen",
+      "code": "SJ",
+      "tax": 10
+    },
+    {
+      "name": "Swaziland",
+      "code": "SZ",
+      "tax": 10
+    },
+    {
+      "name": "Sweden",
+      "code": "SE",
+      "tax": 10
+    },
+    {
+      "name": "Switzerland",
+      "code": "CH",
+      "tax": 10
+    },
+    {
+      "name": "Syrian Arab Republic",
+      "code": "SY",
+      "tax": 10
+    },
+    {
+      "name": "Taiwan, Province of China",
+      "code": "TW",
+      "tax": 10
+    },
+    {
+      "name": "Tajikistan",
+      "code": "TJ",
+      "tax": 10
+    },
+    {
+      "name": "Tanzania, United Republic of",
+      "code": "TZ",
+      "tax": 10
+    },
+    {
+      "name": "Thailand",
+      "code": "TH",
+      "tax": 10
+    },
+    {
+      "name": "Timor-Leste",
+      "code": "TL",
+      "tax": 10
+    },
+    {
+      "name": "Togo",
+      "code": "TG",
+      "tax": 10
+    },
+    {
+      "name": "Tokelau",
+      "code": "TK",
+      "tax": 10
+    },
+    {
+      "name": "Tonga",
+      "code": "TO",
+      "tax": 10
+    },
+    {
+      "name": "Trinidad and Tobago",
+      "code": "TT",
+      "tax": 10
+    },
+    {
+      "name": "Tunisia",
+      "code": "TN",
+      "tax": 10
+    },
+    {
+      "name": "Turkey",
+      "code": "TR",
+      "tax": 10
+    },
+    {
+      "name": "Turkmenistan",
+      "code": "TM",
+      "tax": 10
+    },
+    {
+      "name": "Turks and Caicos Islands",
+      "code": "TC",
+      "tax": 10
+    },
+    {
+      "name": "Tuvalu",
+      "code": "TV",
+      "tax": 10
+    },
+    {
+      "name": "Uganda",
+      "code": "UG",
+      "tax": 10
+    },
+    {
+      "name": "Ukraine",
+      "code": "UA",
+      "tax": 10
+    },
+    {
+      "name": "United Arab Emirates",
+      "code": "AE",
+      "tax": 10
+    },
+    {
+      "name": "United Kingdom",
+      "code": "GB",
+      "tax": 10
+    },
+    {
+      "name": "United States",
+      "code": "US",
+      "tax": 10
+    },
+    {
+      "name": "United States Minor Outlying Islands",
+      "code": "UM",
+      "tax": 10
+    },
+    {
+      "name": "Uruguay",
+      "code": "UY",
+      "tax": 10
+    },
+    {
+      "name": "Uzbekistan",
+      "code": "UZ",
+      "tax": 10
+    },
+    {
+      "name": "Vanuatu",
+      "code": "VU",
+      "tax": 10
+    },
+    {
+      "name": "Venezuela",
+      "code": "VE",
+      "tax": 10
+    },
+    {
+      "name": "Viet Nam",
+      "code": "VN",
+      "tax": 10
+    },
+    {
+      "name": "Virgin Islands, British",
+      "code": "VG",
+      "tax": 10
+    },
+    {
+      "name": "Virgin Islands, U.S.",
+      "code": "VI",
+      "tax": 10
+    },
+    {
+      "name": "Wallis and Futuna",
+      "code": "WF",
+      "tax": 10
+    },
+    {
+      "name": "Western Sahara",
+      "code": "EH",
+      "tax": 10
+    },
+    {
+      "name": "Yemen",
+      "code": "YE",
+      "tax": 10
+    },
+    {
+      "name": "Zambia",
+      "code": "ZM",
+      "tax": 10
+    },
+    {
+      "name": "Zimbabwe",
+      "code": "ZW",
+      "tax": 10
+    }
+  ]

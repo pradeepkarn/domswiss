@@ -1,0 +1,38 @@
+[
+    {
+        "id": 255,
+        "ring": 1,
+        "username": "besgood",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 254,
+        "ring": 1,
+        "username": "totkush",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 253,
+        "ring": 1,
+        "username": "kimwacha",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

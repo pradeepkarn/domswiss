@@ -1,0 +1,14 @@
+[
+    {
+        "id": 309,
+        "ring": 1,
+        "username": "aggrey",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

@@ -1,0 +1,86 @@
+{
+    "silver manager": {
+        "pool1": 1,
+        "pool2": 0,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "gold manager": {
+        "pool1": 2,
+        "pool2": 0,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "platinum manager": {
+        "pool1": 3,
+        "pool2": 0,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "director": {
+        "pool1": 4,
+        "pool2": 1,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "team director": {
+        "pool1": 4,
+        "pool2": 2,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "marketing director": {
+        "pool1": 4,
+        "pool2": 3,
+        "pool3": 0,
+        "pool4": 0
+    },
+    "diamond": {
+        "pool1": 5,
+        "pool2": 4,
+        "pool3": 1,
+        "pool4": 0
+    },
+    "blue diamond": {
+        "pool1": 5,
+        "pool2": 4,
+        "pool3": 2,
+        "pool4": 0
+    },
+    "purple diamond": {
+        "pool1": 5,
+        "pool2": 4,
+        "pool3": 3,
+        "pool4": 0
+    },
+    "green diamond": {
+        "pool1": 5,
+        "pool2": 5,
+        "pool3": 4,
+        "pool4": 1
+    },
+    "ambassador": {
+        "pool1": 6,
+        "pool2": 5,
+        "pool3": 4,
+        "pool4": 2
+    },
+    "royal": {
+        "pool1": 6,
+        "pool2": 5,
+        "pool3": 4,
+        "pool4": 3
+    },
+    "royal i": {
+        "pool1": 6,
+        "pool2": 5,
+        "pool3": 5,
+        "pool4": 4
+    },
+    "royal ii": {
+        "pool1": 6,
+        "pool2": 6,
+        "pool3": 5,
+        "pool4": 5
+    }
+}

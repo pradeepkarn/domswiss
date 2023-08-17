@@ -1,0 +1,14 @@
+[
+    {
+        "id": 261,
+        "ring": 1,
+        "username": "ogaernest",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

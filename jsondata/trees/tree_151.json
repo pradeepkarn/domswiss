@@ -1,0 +1,231 @@
+[
+    {
+        "id": 187,
+        "ring": 1,
+        "username": "harrison",
+        "is_active": true,
+        "image": null,
+        "purchase": 33.63999938964844,
+        "purchase_array": [
+            {
+                "id": 100,
+                "unique_id": "64a7df197ac1f",
+                "amount": 33.64,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 15,
+                "rv": 15,
+                "created_at": "2023-07-07 03:47:05",
+                "updated_at": "2023-07-07 03:47:05"
+            }
+        ],
+        "pv": "15",
+        "rv": 15,
+        "tree": [
+            {
+                "id": 255,
+                "ring": 2,
+                "username": "besgood",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            },
+            {
+                "id": 254,
+                "ring": 2,
+                "username": "totkush",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            },
+            {
+                "id": 253,
+                "ring": 2,
+                "username": "kimwacha",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            }
+        ]
+    },
+    {
+        "id": 186,
+        "ring": 1,
+        "username": "denniss",
+        "is_active": true,
+        "image": null,
+        "purchase": 59.15999984741211,
+        "purchase_array": [
+            {
+                "id": 108,
+                "unique_id": "64abc7db91233",
+                "amount": 59.16,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 30,
+                "rv": 500,
+                "created_at": "2023-07-10 02:56:59",
+                "updated_at": "2023-07-10 02:56:59"
+            }
+        ],
+        "pv": "30",
+        "rv": 500,
+        "tree": []
+    },
+    {
+        "id": 185,
+        "ring": 1,
+        "username": "alice",
+        "is_active": true,
+        "image": null,
+        "purchase": 106.72000122070312,
+        "purchase_array": [
+            {
+                "id": 101,
+                "unique_id": "64a7e03676e6f",
+                "amount": 106.72,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 60,
+                "rv": 1000,
+                "created_at": "2023-07-07 03:51:50",
+                "updated_at": "2023-07-07 03:51:50"
+            }
+        ],
+        "pv": "60",
+        "rv": 1000,
+        "tree": []
+    },
+    {
+        "id": 183,
+        "ring": 1,
+        "username": "davidmach",
+        "is_active": true,
+        "image": null,
+        "purchase": 106.72000122070312,
+        "purchase_array": [
+            {
+                "id": 99,
+                "unique_id": "64a7de38876a7",
+                "amount": 106.72,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 60,
+                "rv": 1000,
+                "created_at": "2023-07-07 03:43:20",
+                "updated_at": "2023-07-07 03:43:20"
+            }
+        ],
+        "pv": "60",
+        "rv": 1000,
+        "tree": []
+    },
+    {
+        "id": 182,
+        "ring": 1,
+        "username": "wamaru",
+        "is_active": true,
+        "image": null,
+        "purchase": 59.15999984741211,
+        "purchase_array": [
+            {
+                "id": 107,
+                "unique_id": "64abc5660ad3e",
+                "amount": 59.16,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 30,
+                "rv": 500,
+                "created_at": "2023-07-10 02:46:30",
+                "updated_at": "2023-07-10 02:46:30"
+            }
+        ],
+        "pv": "30",
+        "rv": 500,
+        "tree": []
+    },
+    {
+        "id": 181,
+        "ring": 1,
+        "username": "euniceg",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 180,
+        "ring": 1,
+        "username": "nancywellness",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 179,
+        "ring": 1,
+        "username": "katana",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 178,
+        "ring": 1,
+        "username": "lucywealth",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 177,
+        "ring": 1,
+        "username": "juliah73",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 176,
+        "ring": 1,
+        "username": "categichuki",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

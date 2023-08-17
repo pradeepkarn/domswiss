@@ -1,0 +1,14 @@
+[
+    {
+        "id": 215,
+        "ring": 1,
+        "username": "wellness",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    }
+]

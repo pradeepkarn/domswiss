@@ -1,0 +1,88 @@
+[
+    {
+        "id": 246,
+        "ring": 1,
+        "username": "victorious2023",
+        "is_active": true,
+        "image": null,
+        "purchase": 106.72000122070312,
+        "purchase_array": [
+            {
+                "id": 115,
+                "unique_id": "64abf2c57325a",
+                "amount": 106.72,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 60,
+                "rv": 1000,
+                "created_at": "2023-07-10 06:00:05",
+                "updated_at": "2023-07-10 06:00:05"
+            }
+        ],
+        "pv": "60",
+        "rv": 1000,
+        "tree": [
+            {
+                "id": 247,
+                "ring": 2,
+                "username": "suzzie88",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            }
+        ]
+    },
+    {
+        "id": 244,
+        "ring": 1,
+        "username": "mrmuiruri",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 236,
+        "ring": 1,
+        "username": "natimy",
+        "is_active": true,
+        "image": null,
+        "purchase": 33.63999938964844,
+        "purchase_array": [
+            {
+                "id": 130,
+                "unique_id": "64ad7288e3b46",
+                "amount": 33.64,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 15,
+                "rv": 15,
+                "created_at": "2023-07-11 09:17:28",
+                "updated_at": "2023-07-11 09:17:28"
+            }
+        ],
+        "pv": "15",
+        "rv": 15,
+        "tree": [
+            {
+                "id": 238,
+                "ring": 2,
+                "username": "tecla",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            }
+        ]
+    }
+]

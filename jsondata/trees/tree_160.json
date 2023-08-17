@@ -1,0 +1,51 @@
+[
+    {
+        "id": 294,
+        "ring": 1,
+        "username": "cornelius",
+        "is_active": false,
+        "image": null,
+        "purchase": 0,
+        "purchase_array": [],
+        "pv": 0,
+        "rv": 0,
+        "tree": []
+    },
+    {
+        "id": 232,
+        "ring": 1,
+        "username": "peacetec",
+        "is_active": true,
+        "image": null,
+        "purchase": 172.83999633789062,
+        "purchase_array": [
+            {
+                "id": 106,
+                "unique_id": "64a991add4b30",
+                "amount": 172.84,
+                "status": "paid",
+                "payment_method": "Bank_transfer",
+                "pv": 85,
+                "rv": 2500,
+                "created_at": "2023-07-08 10:41:17",
+                "updated_at": "2023-07-08 10:41:17"
+            }
+        ],
+        "pv": "85",
+        "rv": 2500,
+        "tree": [
+            {
+                "id": 301,
+                "ring": 2,
+                "username": "chiroch72",
+                "is_active": false,
+                "image": null,
+                "purchase": 0,
+                "purchase_array": [],
+                "pv": 0,
+                "rv": 0,
+                "tree": []
+            }
+        ]
+    }
+]

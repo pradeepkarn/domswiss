@@ -1,6 +1,4 @@
 config.php
 *.zip
-/media
-/jsondata
 /task.txt
 /.htaccess
