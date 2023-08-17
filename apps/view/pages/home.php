@@ -180,12 +180,12 @@ SCRPT;
                   $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
                   $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
                   $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
-                  $rv_sum += my_old_rv($user_id = $userid, $dbobj = null);
-
+                  $rv_sum += old_data($key_name="rank_advance",$userid);
+                  $direct_bonus = old_data($key_name="direct_bonus",$userid);
                   $db = new Dbobjects;
-                  $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
-                  $cmsn = $db->show($sql);
-                  $pv_sum += $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+                  $sql = "select SUM(key_value) as pv_sum from old_data where user_id = $user_id and key_name='commission'";
+                  $old_pv = $db->show($sql)[0]['pv_sum'];
+                  $pv_sum +=  old_data($key_name="commission",$userid);
                 }
                 ?>
               </div>

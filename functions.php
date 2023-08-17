@@ -2097,3 +2097,9 @@ function checkActivation($userid, $productId, object $cart)
   // ...
 
 }
+function old_data($key_name="direct_bonus",$userid=0) {
+  $db = new Dbobjects;
+  $sql = "select SUM(key_value) as $key_name from old_data where user_id = $userid and key_name='$key_name'";
+  $dbqry = $db->show($sql);
+  return count($dbqry)>0?$dbqry[0][$key_name]:0;
+}

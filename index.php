@@ -768,16 +768,16 @@ switch ($path) {
       $shr = my_all_share($userid = $_POST['user']);
       # find total life time amt
       $dbmny = new Dbobjects;
-      $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'lifetime'";
-      $cmsn = $dbmny->show($sql);
-      $old_lifetime_pv = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+      // $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'lifetime'";
+      // $cmsn = $dbmny->show($sql);
+      $old_lifetime_pv = old_data($key_name="commission",$_POST['user']);
       $pvctrl = new Pv_ctrl;
       $pv_sum = $pvctrl->my_lifetime_commission_sum($_POST['user']);
       $lifetime_m = $pv_sum + $old_lifetime_pv;
       ##############################################
-      $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'direct_bonus'";
-      $cmsn = $dbmny->show($sql);
-      $direct_m = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+      // $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'direct_bonus'";
+      // $cmsn = $dbmny->show($sql);
+      $direct_m = old_data($key_name="direct_bonus",$_POST['user']);
       $lifetime_m =  $lifetime_m + $direct_m + $shr;
       # find total paid amt
       $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'paid'";

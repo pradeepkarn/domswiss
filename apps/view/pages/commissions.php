@@ -3,29 +3,19 @@ import("apps/view/inc/header.php");
 import("apps/view/inc/navbar.php");
 $earns = [];
 if (authenticate() == true) {
-    
+
 
     $userid = USER['id'];
     // New pv claculation
     $pvctrl = new Pv_ctrl;
     $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
     $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
-    $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
-    $rv_sum += my_old_rv($user_id = $userid, $dbobj = null);
+    // $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
+    $rv_sum += old_data($key_name="rank_advance",$userid);
 
-    $db = new Model('credits');
-    $direct_bonus = total_bonus($user_id);
-    $drb['user_id'] = $user_id;
-    $drb['status'] = 'direct_bonus';
-    $alrdbns = $db->filter_index($drb);
-    if (count($alrdbns) > 0) {
-        $drbid = obj($alrdbns[0]);
-        $drb['amt'] = $direct_bonus;
-        $db->update($drbid->id, $drb);
-    } else {
-        $drb['amt'] = $direct_bonus;
-        $db->store($drb);
-    }
+   
+    $direct_bonus =  old_data($key_name="direct_bonus",$userid);
+ 
     $position = getPosition($level = $rv_sum);
 }
 ?>
@@ -75,18 +65,12 @@ if (authenticate() == true) {
                             <div class="shadow-sm card h-100 px-3 py-2">
                                 <p>All commissions since starting</p>
                                 <?php
-                                $share = my_all_share($userid);
-                                // myprint($share);
-                                // transactionAmt(array('user'=>1,'money_out'=>10));
                                 $db = new Dbobjects;
-                                $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
-                                $cmsn = $db->show($sql);
-                                $old_lifetime_pv = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
-                                $lifetime_pv_new_old = $pv_sum+$old_lifetime_pv;
+                                $share = my_all_share($userid);
+                                $old_lifetime_pv =  old_data($key_name="commission",$userid);
+                                $lifetime_pv_new_old = $pv_sum + $old_lifetime_pv;
                                 ###############################################
-                                $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'direct_bonus'";
-                                $cmsn = $db->show($sql);
-                                $direct_m = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+                                $direct_m = $direct_bonus ? $direct_bonus : 0;
                                 ###############################################
                                 $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and user_id = {$userid}";
                                 $cmsn = $db->show($sql);
@@ -230,305 +214,304 @@ if (authenticate() == true) {
                         );
                         // myprint($myshares);
                     ?>
-                    <table class="table table-bordered">
-                        <tr class="bg-primary text-white">
-                            <th>AFFILIATE Partner</th>
-                            <td>PV POINTS 50/50</td>
-                            <td>Pool 4
-                                <hr>
-                                <div class="bg-warning text-dark p-1">My earned share: <?php echo $myshares['pool4']; ?></div>
-                                <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool4']; ?></div>
-                                <hr>
-                                <br> Pool4 Share = <?php echo $shr['share_for_each_pool']; ?>
-                                <br> Share Count = <?php echo $shr['pool4']['share_count']; ?>
-                                <br> Unit value = <?php echo $shr['pool4']['unit_value']; ?>/share
-                            </td>
-                            <td>Pool 3
-                                <hr>
-                                <div class="bg-warning text-dark p-1"> My earned share: <?php echo $myshares['pool3']; ?></div>
-                                <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool3']; ?></div>
-                                <hr>
-                                <br> Pool3 Share = <?php echo $shr['share_for_each_pool']; ?>
-                                <br> Share Count = <?php echo $shr['pool3']['share_count']; ?>
-                                <br> Unit value = <?php echo $shr['pool3']['unit_value']; ?>/share
-                            </td>
-                            <td>Pool 2
-                                <hr>
-                                <div class="bg-warning text-dark p-1"> My earned share: <?php echo $myshares['pool2']; ?></div>
-                                <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool2']; ?></div>
-                                <hr>
-                                <br> Pool2 Share = <?php echo $shr['share_for_each_pool']; ?>
-                                <br> Share Count = <?php echo $shr['pool2']['share_count']; ?>
-                                <br> Unit value = <?php echo $shr['pool2']['unit_value']; ?>/share
-                            </td>
-                            <td>Pool l
-                                <hr>
-                                <div class="bg-warning text-dark p-1">My earned share: <?php echo $myshares['pool1']; ?></div>
-                                <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool1']; ?></div>
-                                <hr>
-                                <br> Pool1 Share = <?php echo $shr['share_for_each_pool']; ?>
-                                <br> Share Count = <?php echo $shr['pool1']['share_count']; ?>
-                                <br> Unit value = <?php echo $shr['pool1']['unit_value']; ?>/share
-                            </td>
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 500 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">BRONZE Manager <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('BRONZE Manager')];
-                                ?> members
-                            </th>
-                            <td>
-                                500 <?php echo $rv_sum >= 500 ? "<i class='fas fa-check'></i>" : null; ?>
-                            </td>
-                            <td class="text-center" colspan="4">Shares in Pool</td>
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 1000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">SILVER Manager <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('SILVER Manager')];
-                                ?> members
-                            </th>
-                            <td>
-                                1000 <?php echo $rv_sum >= 1000 ? "<i class='fas fa-check'></i>" : null; ?>
-                            </td>
-                            <td></td>
-
-                            <td></td>
-
-                            <td></td>
-
-                            <td>1</td>
-
-
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 2500 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">GOLD Manager <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('GOLD Manager')];
-                                ?> members
-                            </th>
-                            <td>
-                                2500 <?php echo $rv_sum >= 2500 ? "<i class='fas fa-check'></i>" : null; ?>
-                            </td>
-                            <td></td>
-
-                            <td></td>
-
-                            <td></td>
-
-                            <td>2</td>
-
-
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 5000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">PLATINUM Manager <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('PLATINUM Manager')];
-                                ?> members
-                            </th>
-                            <td>
-                                5000 <?php echo $rv_sum >= 5000 ? "<i class='fas fa-check'></i>" : null; ?>
-                            </td>
-                            <td></td>
-
-                            <td></td>
+                        <table class="table table-bordered">
+                            <tr class="bg-primary text-white">
+                                <th>AFFILIATE Partner</th>
+                                <td>PV POINTS 50/50</td>
+                                <td>Pool 4
+                                    <hr>
+                                    <div class="bg-warning text-dark p-1">My earned share: <?php echo $myshares['pool4']; ?></div>
+                                    <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool4']; ?></div>
+                                    <hr>
+                                    <br> Pool4 Share = <?php echo $shr['share_for_each_pool']; ?>
+                                    <br> Share Count = <?php echo $shr['pool4']['share_count']; ?>
+                                    <br> Unit value = <?php echo $shr['pool4']['unit_value']; ?>/share
+                                </td>
+                                <td>Pool 3
+                                    <hr>
+                                    <div class="bg-warning text-dark p-1"> My earned share: <?php echo $myshares['pool3']; ?></div>
+                                    <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool3']; ?></div>
+                                    <hr>
+                                    <br> Pool3 Share = <?php echo $shr['share_for_each_pool']; ?>
+                                    <br> Share Count = <?php echo $shr['pool3']['share_count']; ?>
+                                    <br> Unit value = <?php echo $shr['pool3']['unit_value']; ?>/share
+                                </td>
+                                <td>Pool 2
+                                    <hr>
+                                    <div class="bg-warning text-dark p-1"> My earned share: <?php echo $myshares['pool2']; ?></div>
+                                    <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool2']; ?></div>
+                                    <hr>
+                                    <br> Pool2 Share = <?php echo $shr['share_for_each_pool']; ?>
+                                    <br> Share Count = <?php echo $shr['pool2']['share_count']; ?>
+                                    <br> Unit value = <?php echo $shr['pool2']['unit_value']; ?>/share
+                                </td>
+                                <td>Pool l
+                                    <hr>
+                                    <div class="bg-warning text-dark p-1">My earned share: <?php echo $myshares['pool1']; ?></div>
+                                    <div class="bg-warning text-dark p-1">My share count: <?php echo $myshare_count['pool1']; ?></div>
+                                    <hr>
+                                    <br> Pool1 Share = <?php echo $shr['share_for_each_pool']; ?>
+                                    <br> Share Count = <?php echo $shr['pool1']['share_count']; ?>
+                                    <br> Unit value = <?php echo $shr['pool1']['unit_value']; ?>/share
+                                </td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 500 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">BRONZE Manager <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('BRONZE Manager')];
+                                    ?> members
+                                </th>
+                                <td>
+                                    500 <?php echo $rv_sum >= 500 ? "<i class='fas fa-check'></i>" : null; ?>
+                                </td>
+                                <td class="text-center" colspan="4">Shares in Pool</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 1000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">SILVER Manager <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('SILVER Manager')];
+                                    ?> members
+                                </th>
+                                <td>
+                                    1000 <?php echo $rv_sum >= 1000 ? "<i class='fas fa-check'></i>" : null; ?>
+                                </td>
+                                <td></td>
+
+                                <td></td>
+
+                                <td></td>
+
+                                <td>1</td>
+
+
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 2500 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">GOLD Manager <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('GOLD Manager')];
+                                    ?> members
+                                </th>
+                                <td>
+                                    2500 <?php echo $rv_sum >= 2500 ? "<i class='fas fa-check'></i>" : null; ?>
+                                </td>
+                                <td></td>
+
+                                <td></td>
+
+                                <td></td>
+
+                                <td>2</td>
+
+
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 5000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">PLATINUM Manager <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('PLATINUM Manager')];
+                                    ?> members
+                                </th>
+                                <td>
+                                    5000 <?php echo $rv_sum >= 5000 ? "<i class='fas fa-check'></i>" : null; ?>
+                                </td>
+                                <td></td>
+
+                                <td></td>
 
-                            <td></td>
+                                <td></td>
 
-                            <td>3</td>
+                                <td>3</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 10000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">DIRECTOR <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('DIRECTOR')];
-                                ?> members
-                            </th>
-                            <td>10000 <?php echo $rv_sum >= 10000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 10000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">DIRECTOR <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('DIRECTOR')];
+                                    ?> members
+                                </th>
+                                <td>10000 <?php echo $rv_sum >= 10000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td></td>
+                                <td></td>
 
-                            <td>1</td>
+                                <td>1</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 25000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">TEAM DIRECTOR <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('TEAM DIRECTOR')];
-                                ?> members
-                            </th>
-                            <td>25000 <?php echo $rv_sum >= 25000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 25000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">TEAM DIRECTOR <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('TEAM DIRECTOR')];
+                                    ?> members
+                                </th>
+                                <td>25000 <?php echo $rv_sum >= 25000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td></td>
+                                <td></td>
 
-                            <td>2</td>
+                                <td>2</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 50000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">MARKETING DIRECTOR <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('MARKETING DIRECTOR')];
-                                ?> members
-                            </th>
-                            <td>50000 <?php echo $rv_sum >= 50000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 50000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">MARKETING DIRECTOR <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('MARKETING DIRECTOR')];
+                                    ?> members
+                                </th>
+                                <td>50000 <?php echo $rv_sum >= 50000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td></td>
+                                <td></td>
 
-                            <td>3</td>
+                                <td>3</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 100000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">DIAMOND <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('DIAMOND')];
-                                ?> members
-                            </th>
-                            <td>100000 <?php echo $rv_sum >= 100000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 100000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">DIAMOND <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('DIAMOND')];
+                                    ?> members
+                                </th>
+                                <td>100000 <?php echo $rv_sum >= 100000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td>1</td>
+                                <td>1</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 250000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">BLUE DIAMOND <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('BLUE DIAMOND')];
-                                ?> members
-                            </th>
-                            <td>250000 <?php echo $rv_sum >= 250000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 250000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">BLUE DIAMOND <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('BLUE DIAMOND')];
+                                    ?> members
+                                </th>
+                                <td>250000 <?php echo $rv_sum >= 250000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td>2</td>
+                                <td>2</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 500000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">PURPLE DIAMOND <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('PURPLE DIAMOND')];
-                                ?> members
-                            </th>
-                            <td>500000 <?php echo $rv_sum >= 500000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td></td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 500000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">PURPLE DIAMOND <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('PURPLE DIAMOND')];
+                                    ?> members
+                                </th>
+                                <td>500000 <?php echo $rv_sum >= 500000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td></td>
 
-                            <td>3</td>
+                                <td>3</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 1000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">GREEN DIAMOND <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('GREEN DIAMOND')];
-                                ?> members
-                            </th>
-                            <td>1000000 <?php echo $rv_sum >= 1000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td>1</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 1000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">GREEN DIAMOND <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('GREEN DIAMOND')];
+                                    ?> members
+                                </th>
+                                <td>1000000 <?php echo $rv_sum >= 1000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td>1</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 2000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">AMBASSADOR <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('AMBASSADOR')];
-                                ?> members
-                            </th>
-                            <td>2000000 <?php echo $rv_sum >= 2000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td>2</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 2000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">AMBASSADOR <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('AMBASSADOR')];
+                                    ?> members
+                                </th>
+                                <td>2000000 <?php echo $rv_sum >= 2000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td>2</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>6</td>
+                                <td>6</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 4000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">ROYAL <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('ROYAL')];
-                                ?> members
-                            </th>
-                            <td>4000000 <?php echo $rv_sum >= 4000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td>3</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 4000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">ROYAL <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('ROYAL')];
+                                    ?> members
+                                </th>
+                                <td>4000000 <?php echo $rv_sum >= 4000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td>3</td>
 
-                            <td>4</td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>6</td>
+                                <td>6</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 8000000  ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">ROYAL I <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('ROYAL I')];
-                                ?> members
-                            </th>
-                            <td>8000000 <?php echo $rv_sum >= 8000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td>4</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 8000000  ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">ROYAL I <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('ROYAL I')];
+                                    ?> members
+                                </th>
+                                <td>8000000 <?php echo $rv_sum >= 8000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td>4</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>6</td>
+                                <td>6</td>
 
 
-                        </tr>
-                        <tr class="text-center <?php echo $rv_sum >= 16000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
-                            <th class="text-start">ROYAL II <i class="fas fa-arrow-right"></i>
-                                <?php
-                                echo $mmbrs[strtolower('ROYAL II')];
-                                ?> members
-                            </th>
-                            <td>16000000 <?php echo $rv_sum >= 16000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
-                            <td>5</td>
+                            </tr>
+                            <tr class="text-center <?php echo $rv_sum >= 16000000 ? "bg-success text-white" : "bg-muted text-muted"; ?>">
+                                <th class="text-start">ROYAL II <i class="fas fa-arrow-right"></i>
+                                    <?php
+                                    echo $mmbrs[strtolower('ROYAL II')];
+                                    ?> members
+                                </th>
+                                <td>16000000 <?php echo $rv_sum >= 16000000 ? "<i class='fas fa-check'></i>" : null; ?></td>
+                                <td>5</td>
 
-                            <td>5</td>
+                                <td>5</td>
 
-                            <td>6</td>
+                                <td>6</td>
 
-                            <td>6</td>
-                        </tr>
-                    </table>
-                <?php }
-                else{
-                    echo "<h3 class='text-center my-5'>You need to qualify the position if you want to see the pool shares here.</h3>";
-                } ?>
+                                <td>6</td>
+                            </tr>
+                        </table>
+                    <?php } else {
+                        echo "<h3 class='text-center my-5'>You need to qualify the position if you want to see the pool shares here.</h3>";
+                    } ?>
 
                     <!-- Modal -->
                     <div class="modal" id="withdrawMoney" tabindex="-1" aria-labelledby="withdrawMoneyLabel" aria-hidden="true">
