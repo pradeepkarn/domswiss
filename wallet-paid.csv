@@ -1,0 +1,3 @@
+transaction_id,payee_id,payee_email,username,bank_name,bank_account,iban,swift_code,country,amt,paid_on,status,remark
+1,1,pkarn@live.in,master,mpesa,Harald,0765422896451,Safaricom,Kenya,100,"2023-07-21 16:25:46",paid,
+147,147,haraldpratter7548@gmail.com,africa,,,,,Germany,10,"2023-07-14 08:25:54",paid,

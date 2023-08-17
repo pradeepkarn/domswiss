@@ -1,0 +1,4 @@
+<Files "pv-calculate.php">
+    Order Deny,Allow
+    Deny from all
+</Files>
