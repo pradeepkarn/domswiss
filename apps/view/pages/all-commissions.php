@@ -78,6 +78,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         <th>Edit user</th>
                                         <th>Order By</th>
                                         <th>Ring</th>
+                                        <th>PV</th>
                                         <th>Commission</th>
                                         <th>Paid to</th>
                                         <th>Order date</th>
@@ -90,6 +91,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         <th>Edit user</th>
                                         <th>Order By</th>
                                         <th>Ring</th>
+                                        <th>PV</th>
                                         <th>Commission</th>
                                         <th>Paid to</th>
                                         <th>Order date</th>
@@ -114,6 +116,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                             <th><a target="_blank" href="/<?php echo home; ?>/edit-user/?userid=<?php echo $value['id']; ?>">Edit</a></th>
                                             <th><?php echo $orderbyusername; ?></th>
                                             <th><?php echo $value['ring']; ?></th>
+                                            <th><?php echo $value['pv']; ?></th>
                                             <th><?php echo $value['commission']; ?></th>
                                             <th><?php echo $sponser; ?></th>
                                             <th><?php echo $value['created_at']; ?></th>
