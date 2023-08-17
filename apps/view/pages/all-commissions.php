@@ -120,8 +120,9 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                             <th><?php echo $value['id']; ?></th>
                                            
                                             <th><?php echo $orderbyusername; ?></th>
-                                            <th><?php echo $sponser; ?></th>
+                                            
                                             <th><?php echo $value['pv']; ?></th>
+                                            <th><?php echo $sponser; ?></th>
                                             <th><?php echo $value['ring']; ?></th>
                                             
                                             <th><?php echo $value['commission']; ?></th>
