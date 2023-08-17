@@ -30,7 +30,7 @@ foreach ($users as $u) {
 
     $sqloldsmsncxhh = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
     $cmsn = $db->show($sqloldsmsncxhh);
-    $old_lifetime_pv = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+    $old_lifetime_pv = isset($cmsn[0]['total_amt']) ? $cmsn[0]['total_amt'] : 0;
 
     $bns = total_bonus($u['id']);
     $sql_oldcmsn = "INSERT INTO `old_data` (`key_name`, `key_value`, `user_id`) VALUES ('commission', '$old_lifetime_pv', {$u['id']});";

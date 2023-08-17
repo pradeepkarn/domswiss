@@ -10,7 +10,7 @@ if (authenticate() == true) {
     $pvctrl = new Pv_ctrl;
     $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
     $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
-    // $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
+    $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
     $rv_sum += old_data($key_name="rank_advance",$userid);
 
    

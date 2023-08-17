@@ -1505,7 +1505,7 @@ function getCommissions($req, $data_limit = 5)
     $q = $req->q;
   }
   $db = new Model('ring_commissions');
-  $commissions =  $db->index(ord: "DESC", limit: $page_limit, change_order_by_col:'created_at');
+  $commissions =  $db->index(ord: "DESC", limit: $page_limit, change_order_by_col: 'created_at');
   return (object) array(
     'req' => obj($req),
     'total_cmsn' => $tp,
@@ -1882,21 +1882,25 @@ function my_rv_and_admin_rv($user_id, $dbobj = null)
   }
   return $total_rv;
 }
-function my_old_rv($user_id, $dbobj = null)
+function my_old_rv($user_id, $db = null)
 {
-  $total_rv = 0;
-  if ($dbobj == null) {
-    $dbobj = new Dbobjects;
-    $sql = "select SUM(old_rv) as old_rv from rank_advance where added_to = {$user_id} and status = 'confirmed' and old_rv > 0";
-    $rv_old = $dbobj->show($sql)[0]['old_rv'];
-    $total_rv = $rv_old;
-  } else {
-    $sql = "select SUM(old_rv) as old_rv from rank_advance where added_to = {$user_id} and status = 'confirmed' and old_rv > 0";
-    $rv_old = $dbobj->show($sql)[0]['old_rv'];
-    $total_rv = $rv_old;
-  }
-  return $total_rv;
+  return old_data('rank_advance', $user_id, $db = null);
 }
+// function my_old_rv($user_id, $dbobj = null)
+// {
+//   $total_rv = 0;
+//   if ($dbobj == null) {
+//     $dbobj = new Dbobjects;
+//     $sql = "select SUM(old_rv) as old_rv from rank_advance where added_to = {$user_id} and status = 'confirmed' and old_rv > 0";
+//     $rv_old = $dbobj->show($sql)[0]['old_rv'];
+//     $total_rv = $rv_old;
+//   } else {
+//     $sql = "select SUM(old_rv) as old_rv from rank_advance where added_to = {$user_id} and status = 'confirmed' and old_rv > 0";
+//     $rv_old = $dbobj->show($sql)[0]['old_rv'];
+//     $total_rv = $rv_old;
+//   }
+//   return $total_rv;
+// }
 
 function createFolderIfNeeded($folderPath, $permissions = 0755)
 {
@@ -2073,7 +2077,7 @@ function checkActivation($userid, $productId, object $cart)
     $higherTierProduct = $cart->show($sql);
 
     if (count($higherTierProduct) > 0) {
-     return true;
+      return true;
     } else {
       // User does not have a higher-tier product, prevent adding Bronze
       echo js_alert('You can only purchase Bronze if you do not have a higher-tier product.');
@@ -2097,9 +2101,13 @@ function checkActivation($userid, $productId, object $cart)
   // ...
 
 }
-function old_data($key_name="direct_bonus",$userid=0) {
-  $db = new Dbobjects;
+function old_data($key_name = "direct_bonus", $userid = 0, $db=null)
+{
+  if ($db==null) {
+    $db = new Dbobjects;
+  }
+  
   $sql = "select SUM(key_value) as $key_name from old_data where user_id = $userid and key_name='$key_name'";
   $dbqry = $db->show($sql);
-  return count($dbqry)>0?$dbqry[0][$key_name]:0;
+  return count($dbqry) > 0 ? $dbqry[0][$key_name] : 0;
 }
