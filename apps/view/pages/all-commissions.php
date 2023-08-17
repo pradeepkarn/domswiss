@@ -75,29 +75,32 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Edit user</th>
+                                   
                                         <th>Order By</th>
-                                        <th>Ring</th>
                                         <th>PV</th>
+                                        <th>Paid to</th>
+                                        <th>Ring</th>
+
                                         <th>Commission</th>
                                         <th>Direct Bonus</th>
-                                        <th>Paid to</th>
+
                                         <th>Order date</th>
-                                        <!-- <th>Wallet</th> -->
+
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Edit user</th>
+                                      
                                         <th>Order By</th>
-                                        <th>Ring</th>
                                         <th>PV</th>
+                                        <th>Paid to</th>
+                                        <th>Ring</th>
+
                                         <th>Commission</th>
                                         <th>Direct Bonus</th>
-                                        <th>Paid to</th>
+
                                         <th>Order date</th>
-                                        <!-- <th>Wallet</th> -->
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -115,16 +118,20 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                     ?>
                                         <tr>
                                             <th><?php echo $value['id']; ?></th>
-                                            <th><a target="_blank" href="/<?php echo home; ?>/edit-user/?userid=<?php echo $value['id']; ?>">Edit</a></th>
+                                           
                                             <th><?php echo $orderbyusername; ?></th>
-                                            <th><?php echo $value['ring']; ?></th>
+                                            <th><?php echo $sponser; ?></th>
                                             <th><?php echo $value['pv']; ?></th>
+                                            <th><?php echo $value['ring']; ?></th>
+                                            
                                             <th><?php echo $value['commission']; ?></th>
                                             <th><?php echo $value['direct_bonus']; ?></th>
-                                            <th><?php echo $sponser; ?></th>
+                                            
                                             <th><?php echo $value['created_at']; ?></th>
                                             <!-- <th>
-                                                <a target="_blank" href="/<?php // echo home; ?>/user-credits/?userid=<?php // echo $value['id']; ?>">Wallet</a>
+                                                <a target="_blank" href="/<?php // echo home; 
+                                                                            ?>/user-credits/?userid=<?php // echo $value['id']; 
+                                                                                                                        ?>">Wallet</a>
                                             </th> -->
                                         </tr>
                                     <?php
