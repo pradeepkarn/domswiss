@@ -77,8 +77,8 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         <th>ID</th>
                                         <th>Edit user</th>
                                         <th>Order By</th>
-                                        <th>Commission</th>
                                         <th>Ring</th>
+                                        <th>Commission</th>
                                         <th>Paid to</th>
                                         <th>Order date</th>
                                         <!-- <th>Wallet</th> -->
@@ -89,8 +89,8 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         <th>ID</th>
                                         <th>Edit user</th>
                                         <th>Order By</th>
-                                        <th>Commission</th>
                                         <th>Ring</th>
+                                        <th>Commission</th>
                                         <th>Paid to</th>
                                         <th>Order date</th>
                                         <!-- <th>Wallet</th> -->
