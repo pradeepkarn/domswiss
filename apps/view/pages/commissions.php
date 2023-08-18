@@ -15,6 +15,7 @@ if (authenticate() == true) {
 
    
     $direct_bonus =  old_data($key_name="direct_bonus",$userid);
+    $direct_bonus +=  $pvctrl->my_lifetime_direct_bonus_sum($userid);
  
     $position = getPosition($level = $rv_sum);
 }

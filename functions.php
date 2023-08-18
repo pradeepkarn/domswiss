@@ -1718,8 +1718,11 @@ function liveWallet($userid)
   // $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
   // $cmsn = $db->show($sql);
   $lifetime_m = old_data('commission',$userid);
+  $lifetime_m += old_data('direct_bonus',$userid);
   $pv = new Pv_ctrl;
   $lifetime_m  += $pv->my_lifetime_commission_sum($userid);
+  $lifetime_m  += my_all_share($userid);
+  $lifetime_m +=  (new Pv_ctrl)->my_lifetime_direct_bonus_sum($userid);
   ###############################################
   $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and user_id = {$userid}";
   $cmsn = $db->show($sql);

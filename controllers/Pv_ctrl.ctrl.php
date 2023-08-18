@@ -24,6 +24,16 @@ class Pv_ctrl
             return 0.00;
         }
     }
+    function my_lifetime_direct_bonus_sum($my_id)
+    {
+        $db = new Dbobjects;
+        $sql = "SELECT SUM(direct_bonus) as d_b FROM ring_commissions WHERE `partner_id`= $my_id;";
+        try {
+            return round(($db->show($sql)[0]['d_b']), 2);
+        } catch (PDOException $th) {
+            return 0.00;
+        }
+    }
     function my_lifetime_rank_advance_sum($my_id)
     {
         $db = new Dbobjects;

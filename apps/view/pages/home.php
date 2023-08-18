@@ -182,9 +182,10 @@ SCRPT;
                   $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
                   $rv_sum += old_data($key_name="rank_advance",$userid);
                   $direct_bonus = old_data($key_name="direct_bonus",$userid);
-                  $db = new Dbobjects;
-                  $sql = "select SUM(key_value) as pv_sum from old_data where user_id = $user_id and key_name='commission'";
-                  $old_pv = $db->show($sql)[0]['pv_sum'];
+                  $direct_bonus +=  $pvctrl->my_lifetime_direct_bonus_sum($userid);
+                  // $db = new Dbobjects;
+                  // $sql = "select SUM(key_value) as pv_sum from old_data where user_id = $user_id and key_name='commission'";
+                  // $old_pv = $db->show($sql)[0]['pv_sum'];
                   $pv_sum +=  old_data($key_name="commission",$userid);
                 }
                 ?>
