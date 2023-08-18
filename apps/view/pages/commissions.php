@@ -73,7 +73,7 @@ if (authenticate() == true) {
                                 ###############################################
                                 $direct_m = $direct_bonus ? $direct_bonus : 0;
                                 ###############################################
-                                $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and user_id = {$userid}";
+                                $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and remark='confirmed' and user_id = {$userid}";
                                 $cmsn = $db->show($sql);
                                 $tm_paid = $cmsn[0]['total_amt'] ? round(($cmsn[0]['total_amt']), 2) : 0;
                                 $lifetime_m = round(($lifetime_pv_new_old + $direct_m + $share), 2);

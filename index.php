@@ -801,7 +801,7 @@ switch ($path) {
           $_SESSION['msg'][] = "Amount not withdrew";
         }
       } else {
-        $_SESSION['msg'][] = "Amount must not be greater than to your total unpaid amount, also amount must not be negative";
+        $_SESSION['msg'][] = "Amount must not be greater than to your total unpaid/requested amount, also amount must not be negative";
       }
       echo js_alert(msg_ssn(return: true));
       echo RELOAD;

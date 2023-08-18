@@ -1724,7 +1724,7 @@ function liveWallet($userid)
   $lifetime_m  += my_all_share($userid);
   $lifetime_m +=  (new Pv_ctrl)->my_lifetime_direct_bonus_sum($userid);
   ###############################################
-  $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and user_id = {$userid}";
+  $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and remark='confirmed' and user_id = {$userid}";
   $cmsn = $db->show($sql);
   $tm_paid = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
   $amt_left = $lifetime_m - $tm_paid;

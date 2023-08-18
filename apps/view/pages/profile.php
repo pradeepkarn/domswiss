@@ -554,16 +554,18 @@ if (!authenticate()) {
                                                             <tr>
                                                                 <th>Trans. ID</th>
                                                                 <th>Date</th>
-                                                                <th>Status</th>
+                                                                <th>Request status</th>
                                                                 <th>Amount</th>
+                                                                <th>Info</th>
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
                                                                 <th>Trans. ID</th>
                                                                 <th>Date</th>
-                                                                <th>Status</th>
+                                                                <th>Request status</th>
                                                                 <th>Amount</th>
+                                                                <th>Info</th>
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
@@ -578,8 +580,9 @@ if (!authenticate()) {
                                                                 <tr>
                                                                     <td><?php echo $cms->id; ?></td>
                                                                     <td><?php echo $cms->paid_on; ?></td>
-                                                                    <td><?php echo $cms->status; ?></td>
+                                                                    <td><?php echo $cms->remark; ?></td>
                                                                     <td><?php echo $cms->amt; ?></td>
+                                                                    <td><?php echo $cms->info; ?></td>
                                                                 </tr>
                                                             <?php } ?>
 
