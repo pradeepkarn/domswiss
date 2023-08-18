@@ -1715,9 +1715,11 @@ function getPosition($level)
 function liveWallet($userid)
 {
   $db = new Dbobjects;
-  $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
-  $cmsn = $db->show($sql);
-  $lifetime_m = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
+  // $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
+  // $cmsn = $db->show($sql);
+  $lifetime_m = old_data('commission',$userid);
+  $pv = new Pv_ctrl;
+  $lifetime_m  += $pv->my_lifetime_commission_sum($userid);
   ###############################################
   $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and user_id = {$userid}";
   $cmsn = $db->show($sql);
