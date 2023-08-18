@@ -72,14 +72,14 @@ if (!authenticate()) {
                                                         // myprint($shrdata);
 
                                                         $uctrl = new User_ctrl;
-                                                        $uctrl->user_id=USER['id'];
-                                                        $am_i_active = $uctrl->am_i_active()['active'];
+                                                      
+                                                        $am_i_active = $uctrl->am_i_active(USER['id'])['active'];
 
-                                                        $pvctrl = new Pv_ctrl;
-                                                        $im_active = false;
-                                                        $dtt = $pvctrl->my_tree(USER['id'],1,$am_i_active);
-                                                        $dtts = $pvctrl->calculate_sum($dtt,1,10);
-                                                        myprint($dtts);
+                                                        // $pvctrl = new Pv_ctrl;
+                                                        // $im_active = false;
+                                                        // $dtt = $pvctrl->my_tree(USER['id'],1,$am_i_active);
+                                                        // $dtts = $pvctrl->calculate_sum($dtt,1,10);
+                                                        // // myprint($dtts);
                                                         
                                                         
                                                         ?>
