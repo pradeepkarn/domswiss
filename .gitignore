@@ -4,4 +4,4 @@ config.php
 /jsondata
 /task.txt
 /.htaccess
-wallet-paid.csv
+*.csv
