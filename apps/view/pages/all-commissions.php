@@ -112,6 +112,10 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                 </tfoot>
                                 <tbody>
                                     <?php
+                                    $csvdata = [];
+                                    $csvdata['test'] = "test done";
+                                    
+                                    
                                     if (authenticate() == true) {
                                         $userObj = new Model('ring_commissions');
                                         $arr = null;
@@ -123,15 +127,15 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         $sponser = sponser_username($value['partner_id']);
                                         $orderbyusername = sponser_username($value['order_by']);
 
-                                        $csv_main_data['order by'] =  $$orderbyusername;
-                                        $csv_main_data['pv in order'] =  $value['pv'];
-                                        $csv_main_data['rv in order'] =  $value['rv'];
-                                        $csv_main_data['paid to'] =  $sponser;
-                                        $csv_main_data['ring'] =  $value['ring'];
-                                        $csv_main_data['commission paid'] =  $value['commission'];
-                                        $csv_main_data['direct bonus paid'] =  $value['direct_bonus'];
-                                        $csv_main_data['rv paid'] =  $value['rank_advance'];
-                                        $csv_main_data['date'] =  $value['created_at'];
+                                        $csvdata['order by'] =  $$orderbyusername;
+                                        $csvdata['pv in order'] =  $value['pv'];
+                                        $csvdata['rv in order'] =  $value['rv'];
+                                        $csvdata['paid to'] =  $sponser;
+                                        $csvdata['ring'] =  $value['ring'];
+                                        $csvdata['commission paid'] =  $value['commission'];
+                                        $csvdata['direct bonus paid'] =  $value['direct_bonus'];
+                                        $csvdata['rv paid'] =  $value['rank_advance'];
+                                        $csvdata['date'] =  $value['created_at'];
                                     ?>
                                         <tr>
                                             <th><?php echo $value['id']; ?></th>
@@ -161,9 +165,10 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                             </table>
                             <a href="/<?php echo home; ?>/csvdata/commissions/commission-paid.csv" download>Download CSV</a>
                             <?php
-                            
+                            $csv_main_data = [];
+                            $csv_main_data[] = $csvdata;
                         if (count($csv_main_data) > 0) {
-                            $filePath = 'wallet-paid.csv';
+                            $filePath = 'csvdata/commissions/commission-paid.csv';
                             // Create a new CSV writer instance
                             $csv = Writer::createFromPath($filePath, 'w');
                             $headers = array_keys($csv_main_data[0]);
