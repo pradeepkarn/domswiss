@@ -1,4 +1,7 @@
 <?php
+
+use League\Csv\Writer;
+
 import("apps/view/inc/header.php");
 import("apps/view/inc/navbar.php");
 // myprint($context);
@@ -119,6 +122,16 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                     foreach ($cmsns as $value) {
                                         $sponser = sponser_username($value['partner_id']);
                                         $orderbyusername = sponser_username($value['order_by']);
+
+                                        $csv_main_data['order by'] =  $$orderbyusername;
+                                        $csv_main_data['pv in order'] =  $value['pv'];
+                                        $csv_main_data['rv in order'] =  $value['rv'];
+                                        $csv_main_data['paid to'] =  $sponser;
+                                        $csv_main_data['ring'] =  $value['ring'];
+                                        $csv_main_data['commission paid'] =  $value['commission'];
+                                        $csv_main_data['direct bonus paid'] =  $value['direct_bonus'];
+                                        $csv_main_data['rv paid'] =  $value['rank_advance'];
+                                        $csv_main_data['date'] =  $value['created_at'];
                                     ?>
                                         <tr>
                                             <th><?php echo $value['id']; ?></th>
@@ -146,6 +159,20 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                     ?>
                                 </tbody>
                             </table>
+                            <a href="/<?php echo home; ?>/csvdata/commissions/commission-paid.csv" download>Download CSV</a>
+                            <?php
+                            
+                        if (count($csv_main_data) > 0) {
+                            $filePath = 'wallet-paid.csv';
+                            // Create a new CSV writer instance
+                            $csv = Writer::createFromPath($filePath, 'w');
+                            $headers = array_keys($csv_main_data[0]);
+                            // Insert headers as the first row in the CSV file
+                            $csv->insertOne($headers);
+                            // Insert the data along with headers into the CSV file
+                            $csv->insertAll($csv_main_data);
+                        }
+                        ?>
                         </div>
                     </div>
                 </div>

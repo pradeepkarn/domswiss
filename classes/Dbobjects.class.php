@@ -9,7 +9,10 @@ class Dbobjects extends Dbh
     public $sql;//get your sql query
     public $qry;//get current qury
     public $insertData;//set data to update, delete
-
+    public $conn;
+    public function __construct() {
+        $this->conn = $this->connect();
+    }
 
     public function dbpdo()
     {
