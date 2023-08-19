@@ -83,7 +83,10 @@ import("apps/view/inc/navbar.php");
                                                     <?php
                                                     if (is_superuser()) {
                                                     ?>
+                                                        <div class="d-flex gap-2">
                                                         <button data-bs-target="#orderstatusmodal<?php echo $value['id']; ?>" data-bs-toggle="modal" class="btn btn-secondary">Pending</button>
+                                                        <button data-bs-target="#deletePendingModal<?php echo $value['id']; ?>" data-bs-toggle="modal" class="btn btn-danger">Delete</button>
+                                                        </div>
                                                         <!-- Modal -->
                                                         <div class="modal" id="orderstatusmodal<?php echo $value['id']; ?>">
                                                             <div class="modal-dialog">
@@ -113,12 +116,43 @@ import("apps/view/inc/navbar.php");
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <!-- Delete modal -->
+                                                        <div class="modal" id="deletePendingModal<?php echo $value['id']; ?>">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+
+                                                                    <!-- Modal header -->
+                                                                    <div class="modal-header">
+                                                                        <h3 class="modal-title text-danger">Be careful!!!</h3>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <input type="text" placeholder="Type order number" class="dlt<?php echo $value['id']; ?>" name="dlt_text">
+                                                                        <input type="hidden" class="dlt<?php echo $value['id']; ?>" name="dlt_id" value="<?php echo $value['id']; ?>">
+                                                                        <h2 class="text-danger">You are deleting order <?php echo $value['id']; ?>, this can not be undone!</h2>
+                                                                        <button id="delete-this-orderBtn<?php echo $value['id']; ?>" class="btn btn-danger">Delete</button>
+                                                                        <?php
+                                                                        pkAjax("#delete-this-orderBtn{$value['id']}", "/delete-this-order-ajax", ".dlt{$value['id']}", "#res");
+                                                                        ?>
+                                                                    </div>
+
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                 <?php  } else {
                                                         echo "Pending";
                                                     }
                                                 }
                                                 ?>
+                                                
                                             </th>
                                             <th>
                                                 <?php

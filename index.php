@@ -1111,6 +1111,31 @@ switch ($path) {
         exit;
       }
     }
+    if ($url[0] == 'delete-this-order-ajax') {
+      if (!is_superuser()) {
+        echo js_alert('Sorry, You are not an admin');
+        exit;
+      }
+      if (!isset($_POST['dlt_text']) || !isset($_POST['dlt_id'])) {
+        echo js_alert('Please provide order number');
+        exit;
+      }
+      if ($_POST['dlt_text'] !=  $_POST['dlt_id']) {
+        echo js_alert('Invalid order number');
+        exit;
+      }
+      $ord = new Order_ctrl;
+      $dataObj = new stdClass;
+      $rpl = $ord->delet_order_and_cart($id = $_POST['dlt_id']);
+      if ($rpl) {
+        echo js_alert(msg_ssn(return:true));
+        echo RELOAD;
+        exit;
+      } else {
+        echo js_alert(msg_ssn(return:true));
+        exit;
+      }
+    }
     if ($url[0] == 'mark-this-request-as-confirmed-ajax') {
       if (!is_superuser()) {
         echo js_alert('Sorry, You are not an admin');
@@ -1126,6 +1151,25 @@ switch ($path) {
         exit;
       } else {
         echo js_alert('Order status not changed');
+        exit;
+      }
+    }
+    if ($url[0] == 'mark-this-request-as-cancelled-ajax') {
+      if (!is_superuser()) {
+        echo js_alert('Sorry, You are not an admin');
+        exit;
+      }
+      // myprint($_POST);
+      $ord = new Credit_ctrl;
+      $dataObj = new stdClass;
+      $dataObj->info = $_POST['info'];
+      $rpl = $ord->cancel_request($id = $_POST['credit_id'], $dataObj);
+      if ($rpl) {
+        echo js_alert('Request was cancelled');
+        echo RELOAD;
+        exit;
+      } else {
+        echo js_alert('Status not changed');
         exit;
       }
     }

@@ -73,7 +73,7 @@ if (isset($jsn->banks)) {
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header text-white <?php echo $cms->remark=='cancelled'?'bg-danger':'bg-primary'; ?>">
             <h4 class="m-0">Commission Payment Invoice</h4>
           </div>
           <div class="card-body">
@@ -132,12 +132,14 @@ if (isset($jsn->banks)) {
                 <thead>
                   <tr>
                     <th>Commission</th>
+                    <th>Request status</th>
 
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><?php echo $cms->amt; ?></td>
+                    <td class="<?php echo $cms->remark=='cancelled'?'text-danger':null; ?>"><?php echo $cms->remark; ?></td>
                   </tr>
 
                   <!-- Add more rows for other products if needed -->
@@ -152,7 +154,7 @@ if (isset($jsn->banks)) {
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="text-center mt-4">
-          <button class="btn btn-primary" onclick="window.print();">Print Invoice</button>
+          <button class="btn text-white <?php echo $cms->remark=='cancelled'?'btn-danger':'btn-primary'; ?>" onclick="window.print();">Print Invoice</button>
         </div>
       </div>
     </div>

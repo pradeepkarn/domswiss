@@ -27,7 +27,7 @@ class Order_ctrl
             $con = $dbobj->dbpdo();
             $con->beginTransaction();
             $sql = "select SUM(price*qty) as total_amt, SUM(pv*qty) as total_pv, SUM(rv*qty) as total_rv, SUM(direct_bonus*qty) as total_db from customer_order where status = 'cart' and payment_id='0' and user_id = {$_SESSION['user_id']}";
-            if (count($dbobj->show($sql))==0) {
+            if (count($dbobj->show($sql)) == 0) {
                 $_SESSION['msg'][] = 'Your cart is empty!';
                 return;
             }
@@ -83,7 +83,7 @@ class Order_ctrl
                     update_inv_if_not($pay, $invid, $dbobj);
                     $pvctrl = new Pv_ctrl;
                     $pvctrl->db = $dbobj;
-                    $pvctrl->save_commissions($purchaser_id = $_SESSION['user_id'], $order_id = $pay, $pv = $total_pv, $rv=$total_rv, $total_db);
+                    $pvctrl->save_commissions($purchaser_id = $_SESSION['user_id'], $order_id = $pay, $pv = $total_pv, $rv = $total_rv, $total_db);
                 }
                 $con->commit();
             } catch (PDOException $th) {
@@ -128,10 +128,50 @@ class Order_ctrl
     public function confirm_order_status($id, $dataObj)
     {
         $updated_at = date('Y-m-d H:i:s');
-        $pmt = getData('payment',$id);
+        $pmt = getData('payment', $id);
         $pvctrl = new Pv_ctrl;
         $pvctrl->db = new Dbobjects;
-        $pvctrl->save_commissions($purchaser_id = $pmt['user_id'], $order_id = $id, $pv = $pmt['pv'], $rv=$pmt['rv'], $pmt['direct_bonus']);
+        $pvctrl->save_commissions($purchaser_id = $pmt['user_id'], $order_id = $id, $pv = $pmt['pv'], $rv = $pmt['rv'], $pmt['direct_bonus']);
         return (new Model('payment'))->update($id, ['status' => 'paid', 'info' => $dataObj->info, 'updated_at' => $updated_at]);
+    }
+    public function delet_order_and_cart($id)
+    {
+
+        $db = new Dbh;
+        $conn = $db->connect();
+        $conn->beginTransaction();
+        try {
+            // fetch pending payment data
+            $sql = "select id,status,invoice from payment where payment.id = $id and status = 'pending' and (invoice IS NULL OR invoice = '')";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $pmt = $stmt->fetch(PDO::FETCH_OBJ);
+            if ($pmt) {
+                // Deleet single payment
+                $sql_cart_dlt = "delete from customer_order where customer_order.payment_id = $pmt->id";
+                $stmt_cart_dlt = $conn->prepare($sql_cart_dlt);
+                if ($stmt_cart_dlt->execute()) {
+                    $_SESSION['msg'][] = 'Cart product deleted';
+                }
+                // delete payment after deleting cart
+                $sql_pmt_dlt = "delete from payment where payment.id = $id";
+                $stmt_pmt_dlt = $conn->prepare($sql_pmt_dlt);
+                if($stmt_pmt_dlt->execute()){
+                    $_SESSION['msg'][] = 'Order deleted';
+                }
+                $conn->commit();
+                return true;
+            }else{
+                $_SESSION['msg'][] = 'No Order found';
+                $conn->rollBack();
+                return false;
+            }
+            
+        } catch (PDOException $e) {
+            $_SESSION['msg'][] = 'Order not deleted, db error';
+            $conn->rollBack();
+            return false;
+        }
+       
     }
 }

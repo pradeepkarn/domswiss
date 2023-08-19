@@ -9,7 +9,11 @@ if (isset($_GET['remark'])) {
     $remark = 'requested';
 }
 $db = new Dbobjects;
+
 $sql = "SELECT * FROM credits WHERE status = 'paid' AND remark = '$remark' ORDER BY calculated_on DESC;";
+if ($remark=='cancelled') {
+    $sql = "SELECT * FROM credits WHERE status = 'cancelled' AND remark = '$remark' ORDER BY calculated_on DESC;";
+}
 $unpaid_cmsn = $db->show($sql);
 
 
@@ -45,7 +49,7 @@ if (!authenticate()) {
                                         <th>Amount</th>
                                         <th>Info</th>
                                         <th>Details</th>
-                                        <th>Action</th>
+                                        <th class="text-center" colspan="2">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -59,7 +63,7 @@ if (!authenticate()) {
                                         <th>Amount</th>
                                         <th>Info</th>
                                         <th>Details</th>
-                                        <th>Action</th>
+                                        <th class="text-center" colspan="2">Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -177,7 +181,53 @@ if (!authenticate()) {
                                                         </div>
 
                                                 <?php  } else {
-                                                        echo "Confirmed";
+                                                        echo $cms->remark;
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if (is_superuser()) {
+                                                    if ($cms->remark == 'requested') {
+                                                ?>
+
+                                                        <button data-bs-target="#orderCancelModal<?php echo $cms->id; ?>" data-bs-toggle="modal" class="btn btn-danger text-white">Cancel</button>
+
+
+                                                        <!-- Modal -->
+                                                        <div class="modal" id="orderCancelModal<?php echo $cms->id; ?>">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+
+                                                                    <!-- Modal header -->
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Mark this request as cancelled</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+
+                                                                    <!-- Modal body -->
+                                                                    <div class="modal-body">
+                                                                        <textarea name="info" class="cncelpmt<?php echo $cms->id; ?> form-control my-3" placeholder="Cancellation message"></textarea>
+                                                                        <input type="hidden" class="cncelpmt<?php echo $cms->id; ?>" name="credit_id" value="<?php echo $cms->id; ?>">
+                                                                        <button id="mark-this-cancelled<?php echo $cms->id; ?>" class="btn btn-danger text-white">Cancelled</button>
+                                                                        <?php
+                                                                        pkAjax("#mark-this-cancelled{$cms->id}", "/mark-this-request-as-cancelled-ajax", ".cncelpmt{$cms->id}", "#res");
+                                                                        ?>
+                                                                    </div>
+
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                <?php  } else {
+                                                    
+                                                        echo $cms->remark;
                                                     }
                                                 }
                                                 ?>

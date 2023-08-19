@@ -11,7 +11,7 @@ class Dbh {
     protected $dbName = PK_DB_NAME;
     protected $pdo;
     
-    protected function connect(){
+    public function connect(){
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName. ';charset=utf8';
         
         $this->pdo = new PDO($dsn, $this->user, $this->pwd);
