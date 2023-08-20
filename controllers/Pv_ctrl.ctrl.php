@@ -44,6 +44,13 @@ class Pv_ctrl
             return 0.00;
         }
     }
+    function my_all_type_rank_advance_sum($my_id)
+    {
+         $rv_sum = $this->my_lifetime_rank_advance_sum($my_id);
+         $rv_sum = old_data('rank_advance',$my_id);
+         $rv_sum += my_rv_and_admin_rv($user_id = $my_id, $dbobj = $this->db);
+         return $rv_sum;
+    }
     function my_this_month_commission_sum($my_id)
     {
         $db = new Dbobjects;

@@ -110,14 +110,16 @@ class Sales_ctrl
 {
     public $firstDay;
     public $lastDay;
+    public $db;
     function __construct()
     {
+        $this->db = new Dbobjects;
         $this->firstDay = date('Y-m-01');
         $this->lastDay = date('Y-m-t');
     }
     function get_sale_volume()
     {
-        $db = new Dbobjects;
+        $db = $this->db;
         $sql = "SELECT SUM(amount) as total_sale FROM payment WHERE `status`= 'paid' AND updated_at IS NOT NULL AND updated_at >= '$this->firstDay' AND updated_at <= '$this->lastDay';";
         try {
             return round(($db->show($sql)[0]['total_sale']), 2);
@@ -128,7 +130,7 @@ class Sales_ctrl
     }
     function get_pv_volume()
     {
-        $db = new Dbobjects;
+        $db = $this->db;
         $sql = "SELECT SUM(pv) as total_pv FROM payment WHERE `status`= 'paid' AND updated_at IS NOT NULL AND updated_at >= '$this->firstDay' AND updated_at <= '$this->lastDay';";
         try {
             return round(($db->show($sql)[0]['total_pv']), 2);
@@ -137,7 +139,7 @@ class Sales_ctrl
             return 0.00;
         }
     }
-    function distribute_share_by_pool($total_sale=0)
+    function distribute_share_by_pool($total_sale = 0)
     {
         $pool_share_divisions = [
             "silver manager" => [
@@ -241,24 +243,24 @@ class Sales_ctrl
             "royal i" => 0,
             "royal ii" => 0
         ];
-        $file = RPATH."/jsondata/pool/members.json";
+        $file = RPATH . "/jsondata/pool/members.json";
         if (file_exists($file)) {
             $jsndta = file_get_contents($file);
-            $members = json_decode($jsndta,true);
+            $members = json_decode($jsndta, true);
         }
-        $share_for_each_pool = round((($total_sale*0.12)/4),2);
-        
+        $share_for_each_pool = round((($total_sale * 0.12) / 4), 2);
+
         $ts1 = 0;
         $ts2 = 0;
         $ts3 = 0;
         $ts4 = 0;
         foreach ($pool_share_divisions as $sk => $shr) {
-            
-            if (array_key_exists($sk,$members)) {
-                $ts1 += $members[$sk]*$shr['pool1'];
-                $ts2 += $members[$sk]*$shr['pool2'];
-                $ts3 += $members[$sk]*$shr['pool3'];
-                $ts4 += $members[$sk]*$shr['pool4'];
+
+            if (array_key_exists($sk, $members)) {
+                $ts1 += $members[$sk] * $shr['pool1'];
+                $ts2 += $members[$sk] * $shr['pool2'];
+                $ts3 += $members[$sk] * $shr['pool3'];
+                $ts4 += $members[$sk] * $shr['pool4'];
             }
         }
         $data = array(
@@ -281,5 +283,61 @@ class Sales_ctrl
             ),
         );
         return $data;
+    }
+    function total_partner_sale($my_id)
+    {
+        $conn = $this->db;
+        $sql = "SELECT SUM(amount) as partner_sale
+        FROM payment
+        WHERE user_id IN (SELECT id FROM pk_user WHERE ref = $my_id);";
+        $psale = 0.0;
+        try {
+            $psale = $conn->showOne($sql)['partner_sale'];
+            $psale = $psale ? round($psale, 2) : 0.0;
+        } catch (PDOException $e) {
+        }
+        return $psale;
+    }
+    function partner_order_list($my_id)
+    {
+        $arr = [];
+        $conn = $this->db;
+
+
+        $sql = "SELECT p.id as id, p.user_id as partner_id, p.updated_at as invoice_date, co.jsn, co.qty, (select username from pk_user where id = p.user_id) as partner, (select name from item where id = co.item_id) as pkg_name, p.amount
+        FROM payment p
+        JOIN customer_order co ON p.id = co.payment_id
+        WHERE p.status='paid' and p.user_id IN (SELECT id FROM pk_user WHERE ref = $my_id);
+        ";
+        $data = $conn->show($sql);
+        $pvctrl = new Pv_ctrl;
+        $pvctrl->db = $conn;
+        foreach ($data as $key => $ord) {
+            $ord = obj($ord);
+            $ord->jsn = json_decode($ord->jsn);
+            $ord->rv_sum = $pvctrl->my_all_type_rank_advance_sum($ord->partner_id);
+            $ord->position = getPosition($level = $ord->rv_sum);
+            $arr[] = $ord;
+        }
+        return $arr;
+    }
+    function partner_sale_list($my_id)
+    {
+        $arr = [];
+        $conn = $this->db;
+        $sql = "SELECT id as partner_id, username as partner, (select SUM(payment.amount) from payment where status = 'paid' and payment.user_id=pk_user.id) as amount FROM pk_user where ref=$my_id";
+        $data = $conn->show($sql);
+        $pvctrl = new Pv_ctrl;
+        $pvctrl->db = $conn;
+
+
+        foreach ($data as $key => $ord) {
+            $ord = obj($ord);
+            $ord->amount = $ord->amount != '' ? round($ord->amount,2) : 0;
+            $ord->rv_sum = $pvctrl->my_all_type_rank_advance_sum($ord->partner_id);
+            $ord->position = getPosition($level = $ord->rv_sum);
+            $arr[] = $ord;
+        }
+        return $arr;
     }
 }
