@@ -36,6 +36,9 @@ $user_id = $context->payment['user_id'];
 $pmtid = $context->payment['id'];
 $shadrs = obj(get_shipping_address($user_id));
 $user = obj(getData('pk_user', $user_id));
+
+$shpadrs = get_my_primary_address($userid = $user_id);
+$invoice_address = get_invoice_address($country_code = $shpadrs->country_code)->office;
 // myprint($shadrs);
 
 // myprint($context->payment);
@@ -51,8 +54,7 @@ $user = obj(getData('pk_user', $user_id));
             </div>
             <div class="row mt-1">
                 <div class="col-md-12 text-center">
-                    <p style="font-size: 20px; font-weight:450;"> Swiss Pharma Trade AG, Lehnerkirchweg 6, 9402 Mörschwil, Schweiz <br>
-                        UID: CHE-189.953.126, UID: ATU75953434, E-Mail: support@domswiss.me</p>
+                <?php echo $invoice_address; ?>
                 </div>
             </div>
             <div class="row mt-1">
@@ -141,8 +143,7 @@ $user = obj(getData('pk_user', $user_id));
 
             <div class="row mt-5">
                 <div class="col-md-12 text-center">
-                    <p style="font-size: 15px; font-weight:300;"> Swiss Pharma Trade AG, Lehnerkirchweg 6, 9402 Mörschwil, Schweiz
-                        UID: CHE-189.953.126, E-Mail: support@domswiss.me</p>
+                    <?php echo $invoice_address; ?>
                 </div>
             </div>
         </div>
@@ -155,8 +156,7 @@ $user = obj(getData('pk_user', $user_id));
             </div>
             <div class="row mt-1">
                 <div class="col-md-12 text-center">
-                    <p style="font-size: 20px; font-weight:450;"> Swiss Pharma Trade AG, Lehnerkirchweg 6, 9402 Mörschwil, Schweiz <br>
-                        UID: CHE-189.953.126, UID: ATU75953434, E-Mail: support@domswiss.me</p>
+                <?php echo $invoice_address; ?>
                 </div>
             </div>
             <div class="row mt-1">
@@ -261,8 +261,8 @@ $user = obj(getData('pk_user', $user_id));
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p style="font-size: 15px; font-weight:300;"> Swiss Pharma Trade AG, Lehnerkirchweg 6, 9402 Mörschwil, Schweiz
-                        UID: CHE-189.953.126, E-Mail: support@domswiss.me</p>
+                <?php echo $invoice_address; ?>
+                        Email: <a href="mailto:support@domswiss.me">support@domswiss.me</a>
                 </div>
             </div>
              <!-- Footer -->

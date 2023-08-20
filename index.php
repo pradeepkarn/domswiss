@@ -1116,11 +1116,7 @@ switch ($path) {
         echo js_alert('Sorry, You are not an admin');
         exit;
       }
-      if (!isset($_POST['dlt_text']) || !isset($_POST['dlt_id'])) {
-        echo js_alert('Please provide order number');
-        exit;
-      }
-      if ($_POST['dlt_text'] !=  $_POST['dlt_id']) {
+      if (!isset($_POST['dlt_id'])) {
         echo js_alert('Invalid order number');
         exit;
       }

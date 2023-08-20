@@ -691,8 +691,11 @@ if (!authenticate()) {
                                                                 $arr['ref'] = $_SESSION['user_id'];
                                                                 $partner = $userObj->filter_index($assoc_arr = $arr, $ord = 'DESC', $limit = 9999999,                                         $change_order_by_col = "");
                                                             }
-
+                                                            
+                                                                $pvctrl = new Pv_ctrl;
+                                                                $pvctrl->db = new Dbobjects;
                                                             foreach ($partner as $value) {
+                                                                $is_active = $pvctrl->check_active($value['id']);
                                                             ?>
                                                                 <tr>
                                                                     <th><?php echo $value['id']; ?></th>
@@ -700,7 +703,7 @@ if (!authenticate()) {
                                                                     <th><?php echo $value['first_name']; ?></th>
                                                                     <th><?php echo $value['last_name']; ?></th>
                                                                     <th><?php echo $value['created_at']; ?></th>
-                                                                    <th><?php echo $value['is_active'] ? 'Active' : 'In active'; ?></th>
+                                                                    <th><?php echo $is_active ? 'Active' : 'In active'; ?></th>
                                                                 </tr>
                                                             <?php
                                                             }
