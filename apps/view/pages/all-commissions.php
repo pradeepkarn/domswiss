@@ -112,9 +112,9 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                 </tfoot>
                                 <tbody>
                                     <?php
-                                    $csvdata = [];
+                                  
                               
-                                    
+                                    $csv_main_data = [];
                                     
                                     if (authenticate() == true) {
                                         $userObj = new Model('ring_commissions');
@@ -159,14 +159,15 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                             </th> -->
                                         </tr>
                                     <?php
+                                    $csv_main_data[] = $csvdata;
                                     }
                                     ?>
                                 </tbody>
                             </table>
                             <a href="/<?php echo home; ?>/csvdata/commissions/commission-paid.csv" download>Download CSV</a>
                             <?php
-                            $csv_main_data = [];
-                            $csv_main_data[] = $csvdata;
+                           
+                            
                         if (count($csv_main_data) > 0) {
                             $filePath = 'csvdata/commissions/commission-paid.csv';
                             // Create a new CSV writer instance

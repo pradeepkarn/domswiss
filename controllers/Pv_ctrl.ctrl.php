@@ -151,6 +151,32 @@ class Pv_ctrl
 
         return $prtdata;
     }
+    function d3_tree($ref, $depth = 1)
+    {
+        if ($depth > 10) {
+            return []; // Return an empty array if the maximum depth is reached
+        }
+
+        $prtdata = array();
+        // $this->db = new Dbobjects;
+        $sql = "select pk_user.id, pk_user.username, pk_user.image, pk_user.ref from pk_user where pk_user.ref = $ref and pk_user.ref != 0 order by pk_user.id desc";
+        $data = $this->db->show($sql);
+
+        foreach ($data as $p) {
+            $od = $this->order_details($user_id = $p['id'], $this->db);
+            $prtdata[] = array(
+                'id' => $p['id'],
+                'ring' => $depth,
+                'name' => $p['username'],
+                'is_active' => $this->check_active($user_id = $p['id']),
+                'pv' => $od['total_pv'] ? round($od['total_pv'], 2) : 0,
+                'rv' => $od['total_rv'] ? round($od['total_rv'], 2) : 0,
+                'children' => $this->d3_tree($p['id'], $depth + 1)
+            );
+        }
+
+        return $prtdata;
+    }
     function order_details($user_id = null, $db = new Dbobjects)
     {
         $sql_sum = "SELECT SUM(amount) AS purchase, SUM(pv) AS total_pv, SUM(rv) AS total_rv FROM payment WHERE user_id = $user_id AND status = 'paid' AND (invoice IS NOT NULL AND invoice <> '') AND updated_at >= '$this->firstDay' AND updated_at <= '$this->lastDay';";

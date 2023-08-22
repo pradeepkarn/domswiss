@@ -2116,3 +2116,24 @@ function old_data($key_name = "direct_bonus", $userid = 0, $db=null)
   $dbqry = $db->show($sql);
   return count($dbqry) > 0 ? $dbqry[0][$key_name] : 0;
 }
+
+function structure_tree($data) {
+  $output = null;
+    
+    foreach ($data as $item) {
+      $mmbrcnt = count($item['tree']);
+        $text_muted = $mmbrcnt==0?'text-muted':'text-bold has-members';
+        $partners = $mmbrcnt>1?'partners':'partner';
+        $output .= '<li>';
+        $output .= "<span class='caret $text_muted'>" . $item['username'] ." - (" .count($item['tree']). " $partners)</span>";
+        
+        if (!empty($item['tree'])) {
+            $output .= '<ul class="nested">';
+            $output .= structure_tree($item['tree']);
+            $output .= '</ul>';
+        }
+        
+        $output .= '</li>';
+    }
+    return $output;
+}
