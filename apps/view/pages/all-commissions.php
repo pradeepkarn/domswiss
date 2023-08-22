@@ -127,7 +127,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                         $sponser = sponser_username($value['partner_id']);
                                         $orderbyusername = sponser_username($value['order_by']);
 
-                                        $csvdata['order by'] =  $$orderbyusername;
+                                        $csvdata['order by'] =  $orderbyusername;
                                         $csvdata['pv in order'] =  $value['pv'];
                                         $csvdata['rv in order'] =  $value['rv'];
                                         $csvdata['paid to'] =  $sponser;
