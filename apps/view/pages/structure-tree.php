@@ -9,7 +9,7 @@ import("apps/view/inc/navbar.php");
             <div class="container-fluid px-4">
                 <!-- <h1 class="mt-4">Dashboard</h1> -->
                 <ol class="breadcrumb mt-3 mb-4">
-                    <li class="breadcrumb-item active">structure tree</li>
+                    <li class="breadcrumb-item active">Structure Tree (Partners)</li>
                 </ol>
 
                 <div class="container">
@@ -18,7 +18,7 @@ import("apps/view/inc/navbar.php");
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-body">
-                                        <h4 class="card-title text-center">Structure Tree</h4>
+                                        <h4 class="card-title text-center">Structure Tree (Partners)</h4>
                                         <hr>
                                         <!-- <i>There are no registered partners</i> -->
                                         <ul>
@@ -28,7 +28,6 @@ import("apps/view/inc/navbar.php");
                                                 $pvctrl = new Pv_ctrl;
                                                 $pvctrl->db = new Dbobjects;
                                                 $partner = $pvctrl->my_tree($_SESSION['user_id']);
-                                            }
                                             $tree = structure_tree($partner);
                                             ?>
                                             <style>
@@ -85,6 +84,7 @@ import("apps/view/inc/navbar.php");
                                             <ul id="myUL">
                                                 <?php echo $tree; ?>
                                             </ul>
+                                            <?php } ?>
                                             <script>
                                                 var toggler = document.getElementsByClassName("caret");
                                                 var i;

@@ -310,7 +310,7 @@ switch ($path) {
       return;
     }
     if ($url[0] == "structure-tree") {
-      if (!is_superuser()) {
+      if (!authenticate()) {
         header("Location: /$home/");
         exit;
       }
