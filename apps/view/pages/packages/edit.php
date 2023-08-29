@@ -29,6 +29,10 @@ if (isset($jsn->countries)) {
     $selected_countries = $jsn->countries;
 }
 // myprint($jsn);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 import("apps/view/inc/header.php");
 import("apps/view/inc/navbar.php");
 ?>
@@ -118,8 +122,8 @@ import("apps/view/inc/navbar.php");
                                                             if ($item->id == $selectedItem->item) {
                                                                 $isChecked = true;
                                                                 $qty = $selectedItem->qty;
-                                                                $net_price = isset($selectedItem->net_price) ? $selectedItem->net_price : null;
-                                                                $cust_net_price = isset($selectedItem->cust_net_price) ? $selectedItem->cust_net_price : null;
+                                                                $net_price = isset($selectedItem->net_price) ? floatval($selectedItem->net_price) : 0;
+                                                                $cust_net_price = isset($selectedItem->cust_net_price) ? floatval($selectedItem->cust_net_price) : 0;
                                                                 $total_net_price += $net_price * $qty;
                                                                 $total_cust_net_price += floatval($cust_net_price) * $qty;
                                                                 break;

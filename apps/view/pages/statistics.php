@@ -24,7 +24,7 @@ import("apps/view/inc/navbar.php");
                                     <?php
                                     if (authenticate() == true) {
                                         $salesCtrl = new Sales_ctrl;
-                                        $pasle = $salesCtrl->total_partner_sale($my_id = 147);
+                                        $pasle = $salesCtrl->total_partner_sale($my_id = USER['id']);
                                         echo $pasle;
                                     }
                                     ?>/-
@@ -53,7 +53,7 @@ import("apps/view/inc/navbar.php");
                                 <div class="card-body">
                                     <?php
                                     if (authenticate() == true) {
-                                        $pasle = $salesCtrl->total_partner_sale($my_id = 147);
+                                        $pasle = $salesCtrl->total_partner_sale($my_id = USER['id']);
                                         $orders = $salesCtrl->partner_order_list($my_id);
                                         // myprint($orders);
                                     }
@@ -122,7 +122,7 @@ import("apps/view/inc/navbar.php");
 
                                             <?php 
                                             $salesCtrl = new Sales_ctrl;
-                                            $patner_sale_group = $salesCtrl->partner_sale_list(147);
+                                            $patner_sale_group = $salesCtrl->partner_sale_list(USER['id']);
                                             // myprint($patner_sale_group);
                                             foreach ($patner_sale_group as $key => $ord) {
                                                 // $ord = obj($ord);

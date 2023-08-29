@@ -778,7 +778,8 @@ switch ($path) {
       // $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'direct_bonus'";
       // $cmsn = $dbmny->show($sql);
       $direct_m = old_data($key_name="direct_bonus",$_POST['user']);
-      $lifetime_m =  $lifetime_m + $direct_m + $shr;
+      $direct_bonus += $pvctrl->my_lifetime_direct_bonus_sum($_POST['user']);
+      $lifetime_m =  $lifetime_m + $direct_m + $shr + $direct_bonus;
       # find total paid amt
       $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'paid'";
       $cmsn = $dbmny->show($sql);
@@ -790,6 +791,7 @@ switch ($path) {
         return false;
       }
       if (($lifetime_m - $total_paid) >= $amntwd) {
+        // js_alert($lifetime_m);
         $wdobj = new Model('credits');
         $wd_arr['user_id'] = $_POST['user'];
         $wd_arr['status'] = 'paid';
@@ -1131,6 +1133,7 @@ switch ($path) {
         echo js_alert(msg_ssn(return:true));
         exit;
       }
+      return;
     }
     if ($url[0] == 'mark-this-request-as-confirmed-ajax') {
       if (!is_superuser()) {

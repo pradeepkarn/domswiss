@@ -137,7 +137,7 @@ class Order_ctrl
     public function delet_order_and_cart($id)
     {
 
-        $db = new Dbh;
+        $db = new Dbobjects;
         $conn = $db->connect();
         $conn->beginTransaction();
         try {
