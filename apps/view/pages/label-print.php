@@ -40,6 +40,7 @@ $user = obj(getData('pk_user', $user_id));
 $shpadrs = get_my_primary_address($userid = $user_id);
 $invData = get_invoice_address($country_code = $shpadrs->country_code);
 $invoice_address = $invData->office;
+$bank = $invData->bank;
 $delv_info = $invData->delv_info;
 // myprint($shadrs);
 
@@ -76,11 +77,8 @@ $delv_info = $invData->delv_info;
 
                     <p style="font-size: 20px; font-weight:450; width:200px;">
                         Ship from: <br>
-                        <?php echo $shadrs->name; ?> <br>
-                        <?php echo $shadrs->city; ?> <br>
-                        <?php echo $shadrs->state; ?> <br>
-                        <?php echo $shadrs->country; ?> <br>
-                        <?php echo $shadrs->zipcode; ?>
+                        <?php echo $invoice_address; ?> <br>
+                       
                     </p>
                 </div>
                 <!-- <div class="col-3">
@@ -99,11 +97,12 @@ $delv_info = $invData->delv_info;
                         DATE-<?php echo date('Y-m-d H:i:s'); ?> <br>
                         ORD-<?php echo $pmtid; ?>
                     </p>
-                    <p style="font-size: 20px; font-weight:470;">
+                    <?php echo $bank; ?> <br>
+                    <!-- <p style="font-size: 20px; font-weight:470;">
                         ATEOS1000108119
                         Bank transfer
                         (Prepay)
-                    </p>
+                    </p> -->
                 </div>
 
             </div>
@@ -182,11 +181,7 @@ $delv_info = $invData->delv_info;
 
                     <p style="font-size: 20px; font-weight:450; width:200px;">
                         Ship from: <br>
-                        <?php echo $shadrs->name; ?> <br>
-                        <?php echo $shadrs->city; ?> <br>
-                        <?php echo $shadrs->state; ?> <br>
-                        <?php echo $shadrs->country; ?> <br>
-                        <?php echo $shadrs->zipcode; ?>
+                        <?php echo $invoice_address; ?> <br>
                     </p>
                 </div>
 
@@ -206,11 +201,12 @@ $delv_info = $invData->delv_info;
                         DATE-<?php echo date('Y-m-d H:i:s'); ?> <br>
                         ORD-<?php echo $pmtid; ?>
                     </p>
-                    <p style="font-size: 20px; font-weight:470;">
+                    <?php echo $bank; ?> <br>
+                    <!-- <p style="font-size: 20px; font-weight:470;">
                         ATEOS1000108119
                         Bank transfer
                         (Prepay)
-                    </p>
+                    </p> -->
                 </div>
 
 
@@ -260,11 +256,9 @@ $delv_info = $invData->delv_info;
 
             <div class="row mt-3">
                 <div class="col-md-12 text-center">
-                    <p style="font-size: 12px; font-weight:400; ">
-                        <?php
-                            echo $delv_info;
-                        ?>
-                    </p>
+                    <?php
+                    echo $delv_info;
+                    ?>
                 </div>
             </div>
             <div class="row">

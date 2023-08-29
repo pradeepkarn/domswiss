@@ -14,11 +14,13 @@ $shadrs = obj(get_shipping_address($user_id));
 $user = obj(getData('pk_user', $user_id));
 
 $shpadrs = get_my_primary_address($userid = $user_id);
-$invoice_address = get_invoice_address($country_code = $shpadrs->country_code)->office;
-
+$invData = get_invoice_address($country_code = $shpadrs->country_code);
+$invoice_address = $invData->office;
+$delv_info = $invData->delv_info;
 $trns = new Dbobjects;
 $con = $trns->dbpdo();
 $con->beginTransaction();
+
 try {
     $invid = generate_invoice_id($trns);
     update_inv_if_not($id = $pmtid, $invid, $trns);
@@ -36,7 +38,7 @@ try {
 
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid my-5">
+            <div class="container my-5">
 
 
 
@@ -58,7 +60,7 @@ try {
                     <!-- Main Content -->
                     <main>
                         <div class="row">
-                            <div class="col-6"><strong>Date:</strong> <?php echo date('Y-m-d',strtotime($context->payment['updated_at'])); ?> <strong>Time:</strong> <?php echo date('H:i:s',strtotime($context->payment['updated_at'])); ?></div>
+                            <div class="col-6"><strong>Date:</strong> <?php echo date('Y-m-d', strtotime($context->payment['updated_at'])); ?> <strong>Time:</strong> <?php echo date('H:i:s', strtotime($context->payment['updated_at'])); ?></div>
                             <div class="col-6 text-end"> <strong>Invoice No:</strong> INV-<?php echo $invoice != "" ? $invoice : $invid; ?></div>
 
                         </div>
@@ -69,7 +71,7 @@ try {
                                 <address>
                                     <?php echo $shpadrs->name; ?> <br>
                                     <?php echo $shpadrs->city; ?> <br>
-                                    <?php echo $shpadrs->street!=''?"Street: $shpadrs->street <br>":null; ?>
+                                    <?php echo $shpadrs->street != '' ? "Street: $shpadrs->street <br>" : null; ?>
                                     <?php echo $shpadrs->state; ?> <br>
                                     <?php echo $shpadrs->country; ?> <br>
                                     <?php echo $shpadrs->zipcode; ?>
@@ -186,7 +188,7 @@ try {
                                                 <th colspan="6" rowspan="6"></th>
                                                 <th class="text-end">
                                                     <?php if ($max_tax > 0) { ?>
-                                                         Tax (<?php echo $incntr->max_tax; ?>)% =
+                                                        Tax (<?php echo $incntr->max_tax; ?>)% =
                                                     <?php } ?>
                                                 </th>
                                                 <th class="text-end">
@@ -198,7 +200,7 @@ try {
                                             <tr>
                                                 <th class="text-end">
                                                     <?php if ($min_tax > 0) { ?>
-                                                         Tax (<?php echo $incntr->min_tax; ?>)% =
+                                                        Tax (<?php echo $incntr->min_tax; ?>)% =
                                                     <?php } ?>
                                                 </th>
                                                 <th class="text-end">
@@ -223,15 +225,9 @@ try {
 
                                     </table>
                                     <div class="p-2">
-                                        <p style="text-align: justify;">
-                                            Die Auslieferung erfolgt, bis auf die Schweiz, aus dem Lager Österreich und bleibt bis zur
-                                            vollständigen Bezahlung unser Eigentum. Es gelten die allgemeinen Geschäftsbedingungen (AGB)
-                                            in der gültigen Fassung. Bankspesen für Rückbuchungen werden inkl. den anfallenden
-                                            Bearbeitungskosten nachbelastet. Die Widerrufsbelehrung & AGB anfallenden Bearbeitungskosten
-                                            nachbelastet. Die Widerrufsbelehrung & AGB befinden sich im Anhang der Rechnungs-Email. Sollte
-                                            die MwSt. gleich Null sein, dann handelt es sich um eine innergemeinschaftliche Lieferung
-                                            (Reverse Charge) und die Steuerschuld geht auf den Empfänger über.
-                                        </p>
+                                        <?php
+                                        echo $delv_info;
+                                        ?>
                                     </div>
                                 </div>
                             </div>
