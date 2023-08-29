@@ -23,7 +23,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                 </ol>
                 <div class="row">
                     <div class="col-md-4">
-                        <form method="get" action="/<?php echo home; ?>/all-commissions/">
+                        <form method="get" action="/<?php echo home; ?>/my-commissions/">
                             <div class="d-flex">
                                 <input value="<?php echo isset($_GET['q']) ? $_GET['q'] : null; ?>" type="search" name="q" placeholder="Search from server" class="form-control">
                                 <button type="submit">Search</button>
@@ -36,7 +36,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                     $pg = isset($_GET['page']) ? $_GET['page'] : 1;
                     $tp = $tp; // Total pages
                     $current_page = $cp; // Assuming first page is the current page
-                    $link = "/all-commissions/"; // Set your link here
+                    $link = "/my-commissions/"; // Set your link here
 
                     // Calculate start and end page numbers to display
                     $start_page = max(1, $current_page - 2);
@@ -115,13 +115,13 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                   
                               
                                     $csv_main_data = [];
-                                    $cmsns = isset($context['data']->commissions) ? $context['data']->commissions : $cmsns;
-                                    // if (authenticate() == true) {
-                                    //     $userObj = new Model('ring_commissions');
-                                    //     $arr = null;
-                                    //     $arr['partner_id'] = $_SESSION['user_id'];
-                                    //     $cmsns = $userObj->filter_index($assoc_arr = $arr, $ord = 'DESC', $limit = 999,$change_order_by_col = "");
-                                    // }
+                                    // $cmsns = isset($context['data']->commissions) ? $context['data']->commissions : $cmsns;
+                                    if (authenticate() == true) {
+                                        $userObj = new Model('ring_commissions');
+                                        $arr = null;
+                                        $arr['partner_id'] = $_SESSION['user_id'];
+                                        $cmsns = $userObj->filter_index($assoc_arr = $arr, $ord = 'DESC', $limit = 999,$change_order_by_col = "");
+                                    }
                                     
                                     foreach ($cmsns as $value) {
                                         $sponser = sponser_username($value['partner_id']);

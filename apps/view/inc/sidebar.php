@@ -14,30 +14,34 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Commissions
                     </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/my-commissions/?page=1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        My Ring Commissions
+                    </a>
                 <?php
                 }
                 if (is_superuser()) {
                 ?>
-                   <a class="nav-link" href="/<?php echo home; ?>/all-users/?page=1">
-                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <a class="nav-link" href="/<?php echo home; ?>/all-users/?page=1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         All Users
-                </a>
-                   <a class="nav-link" href="/<?php echo home; ?>/all-commissions/?page=1">
-                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        All Commissions
-                </a>
-                   <a class="nav-link" href="/<?php echo home; ?>/all-orders/">
-                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/all-commissions/?page=1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        All Ring Commissions
+                    </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/all-orders/">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         All Orders
-                </a>
-                   <a class="nav-link" href="/<?php echo home; ?>/withdrawal-requests/?remark=requested">
-                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/withdrawal-requests/?remark=requested">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Withdrawal Requests
-                </a>
-                   <a class="nav-link" href="/<?php echo home; ?>/withdrawal-requests/?remark=confirmed">
-                   <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/withdrawal-requests/?remark=confirmed">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Confirmed Withdrawal
-                </a>
+                    </a>
                 <?php
                 }
                 ?>
@@ -50,12 +54,13 @@
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <!-- <a class="nav-link" href="/<?php // echo home; ?>/qualifications">Qualifications</a> -->
-                        
+                        <!-- <a class="nav-link" href="/<?php // echo home; 
+                                                        ?>/qualifications">Qualifications</a> -->
+
                         <?php
                         if (authenticate()) {
                         ?>
-                        <a class="nav-link" href="/<?php echo home; ?>/genology">Genology</a>
+                            <a class="nav-link" href="/<?php echo home; ?>/genology">Genology</a>
                             <a class="nav-link" href="/<?php echo home; ?>/structure-tree">Structure Tree</a>
                         <?php
                         }
@@ -86,7 +91,8 @@
                         <?php
                         if (authenticate()) {
                         ?>
-                            <!-- <a class="nav-link" href="/<?php // echo home; ?>/earnings">Earnings</a> -->
+                            <!-- <a class="nav-link" href="/<?php // echo home; 
+                                                            ?>/earnings">Earnings</a> -->
                         <?php
                         }
                         ?>
@@ -134,45 +140,45 @@
                     </nav>
                 </div>
                 <?php
-                        if (is_superuser()) {
-                        ?>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#countries-management" aria-expanded="false" aria-controls="collapsePages4">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Manage Countries
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="countries-management" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                       
+                if (is_superuser()) {
+                ?>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#countries-management" aria-expanded="false" aria-controls="collapsePages4">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Manage Countries
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="countries-management" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+
                             <a class="nav-link" href="/<?php echo home; ?>/list-all-countries">All countries</a>
-                      
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#product-management" aria-expanded="false" aria-controls="collapsePages4">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Manage Products
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                
-                <div class="collapse show" id="product-management" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <?php
-                        if (is_superuser()) {
-                        ?>
-                            <a class="nav-link" href="/<?php echo home; ?>/list-all-categories">All Categories</a>
-                            <a class="nav-link" href="/<?php echo home; ?>/list-all-products">All Products</a>
-                            <a class="nav-link" href="/<?php echo home; ?>/create-product">Add Product</a>
-                            <a class="nav-link" href="/<?php echo home; ?>/list-all-packages">All Packages</a>
-                            <a class="nav-link" href="/<?php echo home; ?>/create-package">Add Package</a>
-                        <?php
-                        }
-                        ?>
-                    </nav>
-                </div>
+
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#product-management" aria-expanded="false" aria-controls="collapsePages4">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Manage Products
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+
+                    <div class="collapse show" id="product-management" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <?php
+                            if (is_superuser()) {
+                            ?>
+                                <a class="nav-link" href="/<?php echo home; ?>/list-all-categories">All Categories</a>
+                                <a class="nav-link" href="/<?php echo home; ?>/list-all-products">All Products</a>
+                                <a class="nav-link" href="/<?php echo home; ?>/create-product">Add Product</a>
+                                <a class="nav-link" href="/<?php echo home; ?>/list-all-packages">All Packages</a>
+                                <a class="nav-link" href="/<?php echo home; ?>/create-package">Add Package</a>
+                            <?php
+                            }
+                            ?>
+                        </nav>
+                    </div>
                 <?php
-                        }
-                        ?>
-               
+                }
+                ?>
+
 
                 <?php
                 if (authenticate()) {
@@ -190,8 +196,10 @@
                         <?php
                         if (is_superuser()) {
                         ?>
-                            <!-- <a class="nav-link" href="/<?php // echo home; ?>/credits">Credit Sum</a> -->
-                            <!-- <a class="nav-link" href="/<?php // echo home; ?>/all-users">All Users</a> -->
+                            <!-- <a class="nav-link" href="/<?php // echo home; 
+                                                            ?>/credits">Credit Sum</a> -->
+                            <!-- <a class="nav-link" href="/<?php // echo home; 
+                                                            ?>/all-users">All Users</a> -->
                         <?php
                         }
                         ?>
@@ -205,14 +213,14 @@
                         Support Tickets
                     </a>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages2" aria-expanded="false" aria-controls="collapsePages2">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Ideas
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Ideas
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
                 <?php
                 }
                 ?>
-                
+
                 <div class="collapse" id="collapsePages2" aria-labelledby="headingFour" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="/<?php echo home; ?>/profile">My Profile</a>
@@ -243,7 +251,7 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            <?php echo USER? USER['user_group']:null; ?>
+            <?php echo USER ? USER['user_group'] : null; ?>
         </div>
     </nav>
 </div>

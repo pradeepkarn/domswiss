@@ -1513,6 +1513,39 @@ function getCommissions($req, $data_limit = 5)
     'commissions' => $commissions
   );
 }
+function getMyCommissions($req, $data_limit = 5)
+{
+
+  // $req = obj($req);
+  $current_page = 0;
+  $data_limit = $data_limit;
+  $page_limit = "0,$data_limit";
+  $cp = 0;
+  if (isset($req->page) && intval($req->page)) {
+    $cp = $req->page;
+    $current_page = (abs($req->page) - 1) * $data_limit;
+    $page_limit = "$current_page,$data_limit";
+  }
+  $db = new Dbobjects;
+  $tp = count($db->show("select id from ring_commissions where partner_id = $req->my_id"));
+  if ($tp %  $data_limit == 0) {
+    $tp = $tp / $data_limit;
+  } else {
+    $tp = floor($tp / $data_limit) + 1;
+  }
+  $q = null;
+  if (isset($req->q)) {
+    $q = $req->q;
+  }
+  $db = new Model('ring_commissions');
+  $commissions =  $db->filter_index(assoc_arr: ['partner_id' => $req->my_id], ord: "DESC", limit: $page_limit, change_order_by_col: 'created_at');
+  return (object) array(
+    'req' => obj($req),
+    'total_cmsn' => $tp,
+    'current_page' => $cp,
+    'commissions' => $commissions
+  );
+}
 function getPage($req, $data_limit = 5)
 {
 
@@ -1717,8 +1750,8 @@ function liveWallet($userid)
   $db = new Dbobjects;
   // $sql = "select SUM(amt) as total_amt from credits where user_id = {$userid} and status = 'lifetime'";
   // $cmsn = $db->show($sql);
-  $lifetime_m = old_data('commission',$userid);
-  $lifetime_m += old_data('direct_bonus',$userid);
+  $lifetime_m = old_data('commission', $userid);
+  $lifetime_m += old_data('direct_bonus', $userid);
   $pv = new Pv_ctrl;
   $lifetime_m  += $pv->my_lifetime_commission_sum($userid);
   $lifetime_m  += my_all_share($userid);
@@ -2106,34 +2139,35 @@ function checkActivation($userid, $productId, object $cart)
   // ...
 
 }
-function old_data($key_name = "direct_bonus", $userid = 0, $db=null)
+function old_data($key_name = "direct_bonus", $userid = 0, $db = null)
 {
-  if ($db==null) {
+  if ($db == null) {
     $db = new Dbobjects;
   }
-  
+
   $sql = "select SUM(key_value) as $key_name from old_data where user_id = $userid and key_name='$key_name'";
   $dbqry = $db->show($sql);
   return count($dbqry) > 0 ? $dbqry[0][$key_name] : 0;
 }
 
-function structure_tree($data) {
+function structure_tree($data)
+{
   $output = null;
-    
-    foreach ($data as $item) {
-      $mmbrcnt = count($item['tree']);
-        $text_muted = $mmbrcnt==0?'text-muted':'text-bold has-members';
-        $partners = $mmbrcnt>1?'partners':'partner';
-        $output .= '<li>';
-        $output .= "<span class='caret $text_muted'>" . $item['username'] ." - (" .count($item['tree']). " $partners)</span>";
-        
-        if (!empty($item['tree'])) {
-            $output .= '<ul class="nested">';
-            $output .= structure_tree($item['tree']);
-            $output .= '</ul>';
-        }
-        
-        $output .= '</li>';
+
+  foreach ($data as $item) {
+    $mmbrcnt = count($item['tree']);
+    $text_muted = $mmbrcnt == 0 ? 'text-muted' : 'text-bold has-members';
+    $partners = $mmbrcnt > 1 ? 'partners' : 'partner';
+    $output .= '<li>';
+    $output .= "<span class='caret $text_muted'>" . $item['username'] . " - (" . count($item['tree']) . " $partners)</span>";
+
+    if (!empty($item['tree'])) {
+      $output .= '<ul class="nested">';
+      $output .= structure_tree($item['tree']);
+      $output .= '</ul>';
     }
-    return $output;
+
+    $output .= '</li>';
+  }
+  return $output;
 }

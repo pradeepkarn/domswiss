@@ -278,13 +278,28 @@ switch ($path) {
       return;
     }
     if ($url[0] == "all-commissions") {
-      if (authenticate() == false) {
+      if (is_superuser() == false) {
         header("location:/$home/login");
         return;
       }
       $context = null;
       if (isset($_GET['page']) || isset($_GET['q'])) {
         $context['data'] = getCommissions($_GET, $data_limit = 5);
+      }
+      import("apps/view/pages/all-commissions.php", $context);
+      return;
+    }
+    if ($url[0] == "my-commissions") {
+      if (authenticate() == false) {
+        header("location:/$home/login");
+        return;
+      }
+      $context = null;
+      if (isset($_GET['page']) || isset($_GET['q'])) {
+        // $req = new stdClass;
+        $req = obj($_GET);
+        $req->my_id = USER['id'];
+        $context['data'] = getMyCommissions($req, $data_limit = 5);
       }
       import("apps/view/pages/all-commissions.php", $context);
       return;
