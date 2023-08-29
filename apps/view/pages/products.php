@@ -72,7 +72,7 @@ if (!$prmadrs) {
               foreach ($product_list as $pv) {
                 $pv = (object) $pv;
                 $itemObj = json_decode($pv->jsn);
-                $cntrs = $itemObj->countries;
+                $cntrs = !isset($itemObj->countries)?[]:$itemObj->countries;
                 // myprint($cntrs);
 
                 // echo MY_COUNTRY;
@@ -85,7 +85,7 @@ if (!$prmadrs) {
                 if ($check_country == true) :
                   $prices = [];
                   $qtys = [];
-                  $prods = $itemObj->items;
+                  $prods = isset($itemObj->items)?$itemObj->items:[];
                   // myprint($prods);
                   foreach ($prods as $it) {
                     $pr = obj(getData('item', $it->item));

@@ -36,6 +36,9 @@ class Country_ctrl
             if (isset($req->office_address)) {
                 $jsn['office_address'][] = $req->office_address;
             }
+            if (isset($req->delivery_info)) {
+                $arr['delv_info'] = $req->delivery_info;
+            }
             $arr['jsn'] = json_encode($jsn);
             if ($ok == true) {
                 if (

@@ -35,6 +35,7 @@ function get_invoice_address($country_code = 'CH')
   $myaddress_list = $addrs->filter_index(['code' => $country_code]);
   if (count($myaddress_list) > 0) {
     $ofc = (object)($myaddress_list[0]);
+    $data->delv_info = $ofc->delv_info;
     $jsn = json_decode($ofc->jsn);
     $offices = [];
     if (isset($jsn->banks) && count($jsn->banks) > 0) {

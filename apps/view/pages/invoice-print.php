@@ -67,12 +67,12 @@ try {
 
                             <div class="col-4"> <strong>Invoiced To:</strong>
                                 <address>
-                                    Name: <?php echo $shpadrs->name; ?> <br>
-                                    City: <?php echo $shpadrs->city; ?> <br>
+                                    <?php echo $shpadrs->name; ?> <br>
+                                    <?php echo $shpadrs->city; ?> <br>
                                     <?php echo $shpadrs->street!=''?"Street: $shpadrs->street <br>":null; ?>
-                                    State: <?php echo $shpadrs->state; ?> <br>
-                                    Country: <?php echo $shpadrs->country; ?> <br>
-                                    Zip: <?php echo $shpadrs->zipcode; ?>
+                                    <?php echo $shpadrs->state; ?> <br>
+                                    <?php echo $shpadrs->country; ?> <br>
+                                    <?php echo $shpadrs->zipcode; ?>
                                 </address>
                             </div>
                             <div class="col-4"> <strong>Pay To:</strong>

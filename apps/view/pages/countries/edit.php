@@ -18,6 +18,7 @@ $jsn = json_decode($pv->jsn);
 $banks = [];
 $offices = [];
 $gateways = [];
+$delv_info = null;
 if (isset($jsn->banks)) {
     $banks = $jsn->banks;
 }
@@ -26,6 +27,9 @@ if (isset($jsn->office_address)) {
 }
 if (isset($jsn->gateways)) {
     $gateways = $jsn->gateways;
+}
+if (isset($pv->delv_info)) {
+    $delv_info = $pv->delv_info;
 }
 
 
@@ -90,6 +94,18 @@ import("apps/view/inc/navbar.php");
                                                 <div id="container" class="my-3">
                                                     <div class="textarea-container">
                                                         <textarea rows="5" class="form-control tiny_textarea" name="office_address"><?php echo count($offices) ? $offices[0] : null; ?></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                        <label for="">Delivery info</label>
+                                        <div class="row my-3">
+                                            <div class="col-lg-12">
+                                                <div id="container" class="my-3">
+                                                    <div class="textarea-container">
+                                                    <textarea rows="5" class="form-control tiny_textarea" name="delivery_info"><?php echo $delv_info; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
