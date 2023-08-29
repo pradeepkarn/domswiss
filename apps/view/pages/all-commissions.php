@@ -81,14 +81,14 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Order By</th>
                                         <th>PV in order</th>
-                                        <th>RV in order</th>
+                                        <!-- <th>RV in order</th> -->
                                         <th>Paid to</th>
                                         <th>Ring</th>
 
                                         <th>Commission Paid</th>
 
-                                        <th>Direct Bonus Paid</th>
-                                        <th>RV Paid</th>
+                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
 
                                     </tr>
