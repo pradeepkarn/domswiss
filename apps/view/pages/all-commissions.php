@@ -115,14 +115,13 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                   
                               
                                     $csv_main_data = [];
+                                    if (authenticate() == true) {
+                                        $userObj = new Model('ring_commissions');
+                                        $arr = null;
+                                        $arr['partner_id'] = $_SESSION['user_id'];
+                                        $cmsns = $userObj->filter_index($assoc_arr = $arr, $ord = 'DESC', $limit = 999,$change_order_by_col = "");
+                                    }
                                     $cmsns = isset($context['data']->commissions) ? $context['data']->commissions : $cmsns;
-                                    // if (authenticate() == true) {
-                                    //     $userObj = new Model('ring_commissions');
-                                    //     $arr = null;
-                                    //     $arr['partner_id'] = $_SESSION['user_id'];
-                                    //     $cmsns = $userObj->filter_index($assoc_arr = $arr, $ord = 'DESC', $limit = 999,$change_order_by_col = "");
-                                    // }
-                                    
                                     foreach ($cmsns as $value) {
                                         $sponser = sponser_username($value['partner_id']);
                                         $orderbyusername = sponser_username($value['order_by']);
