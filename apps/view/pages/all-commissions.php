@@ -99,14 +99,14 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Order By</th>
                                         <th>PV in order</th>
-                                        <th>RV in order</th>
+                                        <!-- <th>RV in order</th> -->
                                         <th>Paid to</th>
                                         <th>Ring</th>
 
                                         <th>Commission Paid</th>
 
-                                        <th>Direct Bonus Paid</th>
-                                        <th>RV Paid</th>
+                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
                                     </tr>
                                 </tfoot>
@@ -142,13 +142,13 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                             <th><?php echo $orderbyusername; ?></th>
 
                                             <th><?php echo $value['pv']; ?></th>
-                                            <th><?php echo $value['rv']; ?></th>
+                                            <!-- <th><?php //echo $value['rv']; ?></th> -->
                                             <th><?php echo $sponser; ?></th>
                                             <th><?php echo $value['ring']; ?></th>
 
                                             <th><?php echo $value['commission']; ?></th>
-                                            <th><?php echo $value['direct_bonus']; ?></th>
-                                            <th><?php echo $value['rank_advance']; ?></th>
+                                            <!-- <th><?php //echo $value['direct_bonus']; ?></th> -->
+                                            <!-- <th><?php //echo $value['rank_advance']; ?></th> -->
 
                                             <th><?php echo $value['created_at']; ?></th>
                                             <!-- <th>
