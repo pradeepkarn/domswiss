@@ -81,14 +81,14 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Order By</th>
                                         <th>PV in order</th>
-                                        <th>RV in order</th>
+                                        <!-- <th>RV in order</th> -->
                                         <th>Paid to</th>
                                         <th>Ring</th>
 
                                         <th>Commission Paid</th>
 
-                                        <th>Direct Bonus Paid</th>
-                                        <th>RV Paid</th>
+                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
 
                                     </tr>
@@ -99,14 +99,14 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Order By</th>
                                         <th>PV in order</th>
-                                        <th>RV in order</th>
+                                        <!-- <th>RV in order</th> -->
                                         <th>Paid to</th>
                                         <th>Ring</th>
 
                                         <th>Commission Paid</th>
 
-                                        <th>Direct Bonus Paid</th>
-                                        <th>RV Paid</th>
+                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
                                     </tr>
                                 </tfoot>
@@ -128,12 +128,12 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         $csvdata['order by'] =  $orderbyusername;
                                         $csvdata['pv in order'] =  $value['pv'];
-                                        $csvdata['rv in order'] =  $value['rv'];
+                                        // $csvdata['rv in order'] =  $value['rv'];
                                         $csvdata['paid to'] =  $sponser;
                                         $csvdata['ring'] =  $value['ring'];
                                         $csvdata['commission paid'] =  $value['commission'];
-                                        $csvdata['direct bonus paid'] =  $value['direct_bonus'];
-                                        $csvdata['rv paid'] =  $value['rank_advance'];
+                                        // $csvdata['direct bonus paid'] =  $value['direct_bonus'];
+                                        // $csvdata['rv paid'] =  $value['rank_advance'];
                                         $csvdata['date'] =  $value['created_at'];
                                     ?>
                                         <tr>
