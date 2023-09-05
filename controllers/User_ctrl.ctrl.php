@@ -51,4 +51,39 @@ class User_ctrl
         // myprint($data);
         // echo $this->sql;
     }
+
+    function my_all_commission($userid)
+    {
+        // New pv claculation
+        $pvctrl = new Pv_ctrl;
+        $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
+        $pv_sum += $pvctrl->my_admin_commission_sum($userid);
+        $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
+        $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
+        $rv_sum += old_data($key_name = "rank_advance", $userid);
+        $direct_bonus =  old_data($key_name = "direct_bonus", $userid);
+        $direct_bonus +=  $pvctrl->my_lifetime_direct_bonus_sum($userid);
+        $position = getPosition($level = $rv_sum);
+
+        $db = new Dbobjects;
+        $share = my_all_share($userid);
+        $old_lifetime_pv =  old_data($key_name = "commission", $userid);
+        $lifetime_pv_new_old = $pv_sum + $old_lifetime_pv;
+        ###############################################
+        $direct_m = $direct_bonus ? $direct_bonus : 0;
+        ###############################################
+        $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and remark='confirmed' and user_id = {$userid}";
+        $cmsn = $db->show($sql);
+
+        $tm_paid = $cmsn[0]['total_amt'] ? round(($cmsn[0]['total_amt']), 2) : 0;
+        $lifetime_m = round(($lifetime_pv_new_old + $direct_m + $share), 2);
+
+        return [
+            'position'=>$position,
+            'cmsn_gt'=>$lifetime_m,
+            'rv_gt'=>$rv_sum,
+            'total_paid'=>$tm_paid,
+            'total_unpaid'=>round(($lifetime_m-$tm_paid),2),
+        ];
+    }
 }

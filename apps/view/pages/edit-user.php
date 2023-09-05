@@ -21,29 +21,55 @@ if (is_superuser()) :
             $rvdb->destroy($_POST['delete_rv_id']);
         }
     }
+    ######################################endregion  if (isset($_POST['rv']) && isset($_POST['added_to']) && isset($_POST['action'])) {
+    if (isset($_POST['commission']) && isset($_POST['added_to']) && isset($_POST['action'])) {
+        if (intval($_POST['commission']) && intval($_POST['added_to'])) {
+            $arrrv['rv'] = abs($_POST['rv']);
+            $arrrv['added_to'] = intval($_POST['added_to']);
+            $arrrv['added_by'] = USER['id'];
+            $arrrv['amount'] = abs(floatval($_POST['commission']));
+            if ($arrrv['amount'] > 0) {
+                $rvdb = new Model('extra_credits');
+                $rvdb->store($arrrv);
+            }
+        }
+    }
+    if (isset($_POST['delete_amt_id']) && isset($_POST['action']) && $_POST['action']=="cmsndlt") {
+        if (intval($_POST['delete_amt_id'])) {
+            $rvdb = new Model('extra_credits');
+            $rvdb->destroy($_POST['delete_amt_id']);
+        }
+    }
+
 endif;
-$last_date = last_active_date($user_id = $user['id']);
-$tree  = my_tree($ref = $user['id'], 1, $last_date);
-$depth = 1;
-$treeLength = count($tree);
-$calc = calculatePercentageSum($data = $tree, $depth, $treeLength, $user['id']);
-$sum = $calc['sum'];
-$rv_sum = $calc['rv_sum'] + my_rv_and_admin_rv($user_id = $user['id'], $dbobj = null);
-$jsonData = json_encode($tree, JSON_PRETTY_PRINT);
-$file = "jsondata/trees/tree_" . $user['id'] . '.json';
-file_put_contents($file, $jsonData);
-$db = new Model('credits');
-$crarr['user_id'] = $user['id'];
-$crarr['status'] = 'lifetime';
-$already = $db->filter_index($crarr);
-if (count($already) > 0) {
-    $crid = obj($already[0]);
-    $crarr['amt'] = $sum;
-    $db->update($id = $crid->id, $crarr);
-} else {
-    $crarr['amt'] = $sum;
-    $db->store($crarr);
-}
+$udata = obj((new User_ctrl)->my_all_commission($userid = $user['id']));
+$position = $udata->position;
+$cmsn_gt = $udata->cmsn_gt;
+$total_paid = $udata->total_paid;
+$total_unpaid = $udata->total_unpaid;
+$rv_sum = $udata->rv_gt;
+// $last_date = last_active_date($user_id = $user['id']);
+// $tree  = my_tree($ref = $user['id'], 1, $last_date);
+// $depth = 1;
+// $treeLength = count($tree);
+// $calc = calculatePercentageSum($data = $tree, $depth, $treeLength, $user['id']);
+// $sum = $calc['sum'];
+// $rv_sum = $calc['rv_sum'] + my_rv_and_admin_rv($user_id = $user['id'], $dbobj = null);
+// $jsonData = json_encode($tree, JSON_PRETTY_PRINT);
+// $file = "jsondata/trees/tree_" . $user['id'] . '.json';
+// file_put_contents($file, $jsonData);
+// $db = new Model('credits');
+// $crarr['user_id'] = $user['id'];
+// $crarr['status'] = 'lifetime';
+// $already = $db->filter_index($crarr);
+// if (count($already) > 0) {
+//     $crid = obj($already[0]);
+//     $crarr['amt'] = $sum;
+//     $db->update($id = $crid->id, $crarr);
+// } else {
+//     $crarr['amt'] = $sum;
+//     $db->store($crarr);
+// }
 ?>
 <div id="layoutSidenav">
     <?php import("apps/view/inc/sidebar.php"); ?>
@@ -68,10 +94,67 @@ if (count($already) > 0) {
                                 </div>
 
                             </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" method="post">
+                                        <div class="row m">
+                                            <div class="col-md-6 my-3">
+                                                <input  min="0" placeholder="Commission" type="text" scope="any" name="commission" class="form-control">
+                                                <input type="hidden" name="added_to" value="<?php echo $user['id']; ?>">
+                                                <input type="hidden" name="action" value="add_cmsn">
+                                            </div>
+                                            <div class="col-md-6 my-3">
+                                                <button type="submit" class="btn btn-primary">Add commission</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="row mb-4">
 
                                 <div class="col-md-12">
                                     <div class="shadow-sm card h-100 px-3 py-2">
+                                        <h5>Lifetime Commission
+                                            <?php echo $cmsn_gt; ?>
+
+                                        </h5>
+                                        <table  class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Trans. ID</th>
+                                                    <th>Commission</th>
+                                                    <th>Date</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                                <?php
+                                                $db = new Dbobjects;
+                                                $sql = "select * from extra_credits where added_to = {$user['id']}";
+                                                $extracc = $db->show($sql);
+                                                $total_extracc = 0;
+                                                ?>
+                                                <?php foreach ($extracc as $extcc) {
+                                                    $extcc = obj($extcc);
+                                                    $total_extracc += $extcc->amount;
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $extcc->id; ?></td>
+                                                        <td><?php echo $extcc->amount; ?></td>
+                                                        <td><?php echo $extcc->created_at; ?></td>
+                                                        <td>
+                                                            <form action="" method="post">
+                                                                <input type="hidden" name="delete_amt_id" value="<?php echo $extcc->id; ?>">
+                                                                <input type="hidden" name="action" value="cmsndlt">
+                                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+
+                                            </tbody>
+                                        </table>
                                         <h5>Retirement Foundation</h5>
                                         Total Share Count <?php
                                                             $share = my_all_share_count($user['id']);
@@ -115,6 +198,9 @@ if (count($already) > 0) {
                                     </div>
                                 </form>
                                 <?php pkAjax_form("#updateprofile", "#update-profile-form", "#res"); ?>
+
+
+
                                 <!-- form end-->
                                 <form action="" method="post">
                                     <div class="row m">

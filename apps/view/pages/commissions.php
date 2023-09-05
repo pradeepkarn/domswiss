@@ -8,16 +8,26 @@ if (authenticate() == true) {
     $userid = USER['id'];
     // New pv claculation
     $pvctrl = new Pv_ctrl;
-    $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
-    $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
-    $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
-    $rv_sum += old_data($key_name="rank_advance",$userid);
+    // $pv_sum = $pvctrl->my_lifetime_commission_sum($userid);
+    // $rv_sum = $pvctrl->my_lifetime_rank_advance_sum($userid);
+    // $rv_sum += my_rv_and_admin_rv($user_id = $userid, $dbobj = null);
+    // $rv_sum += old_data($key_name="rank_advance",$userid);
 
-   
-    $direct_bonus =  old_data($key_name="direct_bonus",$userid);
-    $direct_bonus +=  $pvctrl->my_lifetime_direct_bonus_sum($userid);
- 
-    $position = getPosition($level = $rv_sum);
+
+    // $direct_bonus =  old_data($key_name="direct_bonus",$userid);
+    // $direct_bonus +=  $pvctrl->my_lifetime_direct_bonus_sum($userid);
+    // $position = getPosition($level = $rv_sum);
+
+    #####################################
+    $udata = obj((new User_ctrl)->my_all_commission($userid));
+    $position = $udata->position;
+    $cmsn_gt = $udata->cmsn_gt;
+    $total_paid = $udata->total_paid;
+    $total_unpaid = $udata->total_unpaid;
+    $rv_sum = $udata->rv_gt;
+    ########################################
+
+
 }
 ?>
 <div id="layoutSidenav">
@@ -58,26 +68,27 @@ if (authenticate() == true) {
 
                     <div class="row mb-4">
                         <div class="col-md-12 text-center">
-                            <!-- <h3>Direct Bonus: <?php echo $direct_bonus;
-                                                    ?> </h3> -->
+
                             <h3>Position: <?php echo $position . " RV: [$rv_sum]"; ?> </h3>
                         </div>
                         <div class="col-md-4">
                             <div class="shadow-sm card h-100 px-3 py-2">
                                 <p>All commissions since starting</p>
                                 <?php
-                                $db = new Dbobjects;
-                                $share = my_all_share($userid);
-                                $old_lifetime_pv =  old_data($key_name="commission",$userid);
-                                $lifetime_pv_new_old = $pv_sum + $old_lifetime_pv;
-                                ###############################################
-                                $direct_m = $direct_bonus ? $direct_bonus : 0;
-                                ###############################################
-                                $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and remark='confirmed' and user_id = {$userid}";
-                                $cmsn = $db->show($sql);
-                                $tm_paid = $cmsn[0]['total_amt'] ? round(($cmsn[0]['total_amt']), 2) : 0;
-                                $lifetime_m = round(($lifetime_pv_new_old + $direct_m + $share), 2);
-                                echo $lifetime_m;
+                                // $db = new Dbobjects;
+                                // $share = my_all_share($userid);
+                                // $old_lifetime_pv =  old_data($key_name="commission",$userid);
+                                // $lifetime_pv_new_old = $pv_sum + $old_lifetime_pv;
+                                // ###############################################
+                                // $direct_m = $direct_bonus ? $direct_bonus : 0;
+                                // ###############################################
+                                // $sql = "select SUM(amt) as total_amt from credits where status = 'paid' and remark='confirmed' and user_id = {$userid}";
+                                // $cmsn = $db->show($sql);
+                                // $tm_paid = $cmsn[0]['total_amt'] ? round(($cmsn[0]['total_amt']), 2) : 0;
+                                // $lifetime_m = round(($lifetime_pv_new_old + $direct_m + $share), 2);
+                                // echo $lifetime_m."<br>";
+
+                                echo $cmsn_gt;
                                 ?>
                             </div>
                         </div>
@@ -85,7 +96,8 @@ if (authenticate() == true) {
                             <div class="shadow-sm card h-100 px-3 py-2">
                                 <p> Free money to be paid out</p>
                                 <?php
-                                echo round(($lifetime_m - $tm_paid), 2);
+                                // echo round(($lifetime_m - $tm_paid), 2)."<br>";
+                                echo $total_unpaid;
                                 ?>
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#withdrawMoney">Withdraw</button>
                             </div>
@@ -95,7 +107,8 @@ if (authenticate() == true) {
                                 <p>All commissions are paid out</p>
                                 <?php
 
-                                echo $tm_paid;
+                                // echo $tm_paid."<br>";
+                                echo $total_paid;
                                 ?>
 
                             </div>

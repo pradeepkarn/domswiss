@@ -24,6 +24,16 @@ class Pv_ctrl
             return 0.00;
         }
     }
+    function my_admin_commission_sum($my_id)
+    {
+        $db = new Dbobjects;
+        $sql = "SELECT SUM(amount) as cmsn_sum FROM extra_credits WHERE `added_to`= $my_id;";
+        try {
+            return round(($db->show($sql)[0]['cmsn_sum']), 2);
+        } catch (PDOException $th) {
+            return 0.00;
+        }
+    }
     function my_lifetime_direct_bonus_sum($my_id)
     {
         $db = new Dbobjects;
