@@ -45,9 +45,18 @@ import("apps/view/inc/navbar.php");
             $total_amt = 0;
             $total_pv = 0;
             $total_db = 0;
+            $total_gm = 0;
             foreach ($cart_list as $cv) :
               $cv = (object) $cv;
               $item = (object) getData('item', $cv->item_id);
+              $phpobj = json_decode($item->jsn);
+              $gm = 0;
+              foreach ($phpobj->items as $pkey => $prd) {
+                $prod = (object) (new Dbobjects)->showOne("select id,qty,unit from item where id = '$prd->item'");
+                $gm += calculate_gram($prod, $cv->qty);
+                $total_gm += $gm;
+              }
+
               $price_with_tax = round($cv->price);
               $price_without_tax = $price_with_tax / (100 + $cv->tax) * 100;
               $amt = round(($cv->qty * $cv->price), 2);
@@ -72,9 +81,11 @@ import("apps/view/inc/navbar.php");
                   <td>
                     <div class="input-group product_data mb-3" style="width: 130px;">
                       <!-- <input type="hidden" class="qty<?php //echo $cv->id; 
-                                                          ?>" name="cart_id" value="<?php //echo $cv->id; ?>">
+                                                          ?>" name="cart_id" value="<?php //echo $cv->id; 
+                                                                                    ?>">
                       <input type="hidden" class="qty<?php //echo $cv->id; 
-                                                      ?>" name="price" value="<?php //echo $cv->price; ?>"> -->
+                                                      ?>" name="price" value="<?php //echo $cv->price; 
+                                                                              ?>"> -->
                       <input type="hidden" class="qty-dec<?php echo $cv->id; ?>" name="item_id" value="<?php echo $cv->item_id; ?>">
                       <input type="hidden" class="qty-dec<?php echo $cv->id; ?>" name="action" value="remove">
                       <input type="hidden" class="qty-inc<?php echo $cv->id; ?>" name="item_id" value="<?php echo $cv->item_id; ?>">
@@ -105,10 +116,12 @@ import("apps/view/inc/navbar.php");
                 <td colspan="2"></td>
 
                 <td class="text-right" colspan="1"><?php echo $total_pv; ?></td>
-                <!-- <td class="text-right"><?php // echo $total_db; 
-                                            ?></td> -->
-                <td colspan="5">Total Amount</td>
-                <td><?php echo $total_amt; ?> euros</td>
+                <td colspan="">Total gram</td>
+                <td><?php echo $total_gm; ?> </td>
+                <td colspan="">Shipping Cost</td>
+                <td><?php echo calculate_shipping_cost(db:new Dbobjects, gram:$total_gm, ccode:USER['country_code']); ?> </td>
+                <td colspan="1">Total Amount</td>
+                <td><?php echo $total_amt; ?> </td>
               </tr>
             </tbody>
           </table>

@@ -28,6 +28,10 @@ class Country_ctrl
                 $_SESSION['msg'][] = "Mix. tax is required";
                 $ok = false;
             }
+            if (!isset($req->country_code)) {
+                $_SESSION['msg'][] = "Country code is missiing";
+                $ok = false;
+            }
             $jsn = [];
             if (isset($req->bank_details)) {
                 $jsn['banks'][] = $req->bank_details;
@@ -38,6 +42,12 @@ class Country_ctrl
             }
             if (isset($req->delivery_info)) {
                 $arr['delv_info'] = $req->delivery_info;
+            }
+            if (isset($req->shipping_cost)) {
+                $shpcst = obj([]);
+                $shpcst->shipping_cost = $req->shipping_cost;
+                $shpcst->country_code = $req->country_code;
+                $arr['shipping'] = json_encode($shpcst);
             }
             $arr['jsn'] = json_encode($jsn);
             if ($ok == true) {

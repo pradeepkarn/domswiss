@@ -2171,3 +2171,47 @@ function structure_tree($data)
   }
   return $output;
 }
+// use in package to sum grams of total product in a package
+function calculate_gram(Object $item, float $qty)
+{
+  $total_gm = 0;
+  switch ($item->unit) {
+    case "g":
+      $total_gm = $item->qty * $qty;
+      break;
+    case "kg":
+      $total_gm = $item->qty * $qty * 1000;
+      break;
+    case "lb":
+      // Convert pounds to grams (1 lb = 453.592 grams)
+      $total_gm = $item->qty * $qty * 453.592;
+      break;
+    case "oz":
+      // Convert ounces to grams (1 oz = 28.3495 grams)
+      $total_gm = $item->qty * $qty * 28.3495;
+      break;
+  }
+  return $total_gm;
+}
+// calculate shipping charges if gram and country code is available
+function calculate_shipping_cost($db = new Dbobjects, $gram, $ccode)
+{
+  $cost = 0;
+  $shp = (object)$db->showOne("select shipping from countries where code = '$ccode';");
+  if ($shp != '') {
+    $shpng = json_decode($shp->shipping);
+    if (isset($shpng->shipping_cost)) {
+      $shpcost = $shpng->shipping_cost;
+      if ($gram >= 0 &&  $gram < 1001) {
+        $cost = isset($shpcost->f0t1001) ? $shpcost->f0t1001 : 0;
+      } elseif ($gram >= 1001 &&  $gram < 7001) {
+        $cost = isset($shpcost->f1001t7001) ? $shpcost->f1001t7001 : 0;
+      } elseif ($gram >= 7001 &&  $gram < 15001) {
+        $cost = isset($shpcost->f7001t15001) ? $shpcost->f7001t15001 : 0;
+      } elseif ($gram >= 15001) {
+        $cost = isset($shpcost->f15001t31001) ? $shpcost->f15001t31001 : 0;
+      }
+    }
+  }
+  return $cost;
+}

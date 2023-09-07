@@ -77,6 +77,7 @@ import("apps/view/inc/navbar.php");
                                                 <?php
                                                 // $json_data = file_get_contents("./jsondata/country.json");
                                                 // $countries = json_decode($json_data);
+                                                $shipping_charges = [];
                                                 $plobj = new Model('countries');
                                                 $countries = $plobj->index();
                                                 foreach ($countries as $cnt) :
@@ -85,6 +86,11 @@ import("apps/view/inc/navbar.php");
                                                     // Check if the current item is selected
                                                     foreach ($selected_countries as $ccode) {
                                                         if (in_array($cnt->code, array($ccode))) {
+                                                            $shpcost = calculate_shipping_cost($db = new Dbobjects, $gram=$pv->total_gram, $ccode=$ccode);
+                                                            $shipping_charges[] = array(
+                                                                "ccode"=>$ccode,
+                                                                "shipping_cost"=>$shpcost
+                                                            );
                                                             $isCountryChecked = true;
                                                             break;
                                                         }
@@ -113,6 +119,7 @@ import("apps/view/inc/navbar.php");
 
                                                     $prods = new Model('item');
                                                     $all_active_products = $prods->filter_index(['item_group' => 'product', 'is_active' => 1]);
+                                                    $total_gm = 0;
                                                     foreach ($all_active_products as $item) :
                                                         $item = obj($item);
                                                         $isChecked = false;
@@ -120,8 +127,26 @@ import("apps/view/inc/navbar.php");
                                                         // Check if the current item is selected
                                                         foreach ($selected_items as $selectedItem) {
                                                             if ($item->id == $selectedItem->item) {
+
                                                                 $isChecked = true;
                                                                 $qty = $selectedItem->qty;
+                                                                switch ($item->unit) {
+                                                                    case "g":
+                                                                        $total_gm += $item->qty * $qty;
+                                                                        break;
+                                                                    case "kg":
+                                                                        $total_gm += $item->qty * $qty * 1000;
+                                                                        break;
+                                                                    case "lb":
+                                                                        // Convert pounds to grams (1 lb = 453.592 grams)
+                                                                        $total_gm += $item->qty * $qty * 453.592;
+                                                                        break;
+                                                                    case "oz":
+                                                                        // Convert ounces to grams (1 oz = 28.3495 grams)
+                                                                        $total_gm += $item->qty * $qty * 28.3495;
+                                                                        break;
+                                                                }
+
                                                                 $net_price = isset($selectedItem->net_price) ? floatval($selectedItem->net_price) : 0;
                                                                 $cust_net_price = isset($selectedItem->cust_net_price) ? floatval($selectedItem->cust_net_price) : 0;
                                                                 $total_net_price += $net_price * $qty;
@@ -142,7 +167,7 @@ import("apps/view/inc/navbar.php");
                                                         <input placeholder="Cust. Net Price" onchange="total_net_price()" onkeyup="total_net_price()" onblur="total_net_price()" style="width:90px;" min='0' type="number" class="qtys custnetpr" scope="any" name="cust_net_price<?php echo $item->id; ?>" value="<?php echo $cust_net_price; ?>">
                                                         <!-- <img style="height: 40px; width:40px; object-fit:cover;" src="/<?php //echo home; 
                                                                                                                             ?>/media/upload/items/<?php // echo $item->image; 
-                                                                                                                                                                        ?>" alt="items"> -->
+                                                                                                                                                    ?>" alt="items"> -->
                                                         <?php echo $item->name; ?> <br>
 
                                                     <?php endforeach; ?>
@@ -218,6 +243,16 @@ import("apps/view/inc/navbar.php");
                                                     ?>
                                         </div> -->
                                     <input type="hidden" name="product_id" value="<?php echo $pv->id; ?>">
+                                    <div class="col-md-4">
+                                        <!-- <label for="">Total Grams</label> -->
+<?php 
+// myprint($shipping_charges);
+?>
+                                    </div>
+                                    <div class="col-md-8">
+
+                                        <!-- <input type="text" readonly class="form-control mb-3" value="<?php //echo $pv->total_gm; ?>"> -->
+                                    </div>
                                     <button id="mypackage_btn" class="btn btn-light btn-block" name="upload_product_btn" type="button">UPDATE</button>
                             </form>
                         </div>
@@ -323,7 +358,7 @@ import("apps/view/inc/navbar.php");
             <div class="modal-body">
                 <div id="res"></div>
                 <form id="withdraw-amt" action="/<?php echo home; ?>/delete-package">
-                <p class="text-danger">Be carefull, all your invoices related to this package will raise error!</p>
+                    <p class="text-danger">Be carefull, all your invoices related to this package will raise error!</p>
                     <input type="hidden" name="delpid" value="<?php echo $pv->id; ?>" min="0" scope="any" class="form-control">
                     <button id="submit-withdraw" type="button" class="btn btn-danger my-3">Delete</button>
                 </form>

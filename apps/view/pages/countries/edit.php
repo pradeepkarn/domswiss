@@ -31,12 +31,29 @@ if (isset($jsn->gateways)) {
 if (isset($pv->delv_info)) {
     $delv_info = $pv->delv_info;
 }
+$f0t1001 = 0;
+$f1001t7001 = 0;
+$f7001t15001 = 0;
+$f15001t31001 = 0;
+if (isset($pv->shipping)) {
+    $shipping = $pv->shipping != '' ? json_decode($pv->shipping) : obj([]);
+    $f0t1001 = isset($shipping->shipping_cost) ? $shipping->shipping_cost->f0t1001 : 0;
+    $f1001t7001 = isset($shipping->shipping_cost) ? $shipping->shipping_cost->f1001t7001 : 0;
+    $f7001t15001 = isset($shipping->shipping_cost) ? $shipping->shipping_cost->f7001t15001 : 0;
+    $f15001t31001 = isset($shipping->shipping_cost) ? $shipping->shipping_cost->f15001t31001 : 0;
+}
 
 
 
 import("apps/view/inc/header.php");
 import("apps/view/inc/navbar.php");
 ?>
+<style>
+    input[type="number"].form-control {
+        border: 1px solid green;
+        margin-bottom: 5px;
+    }
+</style>
 <div id="layoutSidenav">
     <?php import("apps/view/inc/sidebar.php"); ?>
     <div id="layoutSidenav_content">
@@ -76,6 +93,38 @@ import("apps/view/inc/navbar.php");
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">
+                                        <label for="">Shipping cost</label>
+                                        <div class="row my-3">
+                                            <div class="col-4">
+                                                0 to Below 1001 Gram
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="number" class="form-control" name="shipping_cost[f0t1001]" value="<?php echo $f0t1001; ?>">
+                                            </div>
+
+                                            <div class="col-4">
+                                                1001 to Below 7001 Gram
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="number" class="form-control" name="shipping_cost[f1001t7001]" value="<?php echo $f1001t7001; ?>">
+                                            </div>
+                                            <div class="col-4">
+                                                7001 to Below 15001 Gram
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="number" class="form-control" name="shipping_cost[f7001t15001]" value="<?php echo $f7001t15001; ?>">
+                                            </div>
+
+                                            <div class="col-4">
+                                                15001 to Below 31001 Gram
+                                            </div>
+                                            <div class="col-8">
+                                                <input type="number" class="form-control" name="shipping_cost[f15001t31001]" value="<?php echo $f15001t31001; ?>">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
                                         <label for="">Bank Details</label>
                                         <div class="row my-3">
                                             <div class="col-lg-12">
@@ -87,6 +136,7 @@ import("apps/view/inc/navbar.php");
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group row mb-4">
                                         <label for="">Office Address</label>
                                         <div class="row my-3">
@@ -105,7 +155,7 @@ import("apps/view/inc/navbar.php");
                                             <div class="col-lg-12">
                                                 <div id="container" class="my-3">
                                                     <div class="textarea-container">
-                                                    <textarea rows="5" class="form-control tiny_textarea" name="delivery_info"><?php echo $delv_info; ?></textarea>
+                                                        <textarea rows="5" class="form-control tiny_textarea" name="delivery_info"><?php echo $delv_info; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,6 +182,7 @@ import("apps/view/inc/navbar.php");
                                     </script> -->
                                     <div id="uplpr"></div>
                                     <input type="hidden" name="country_id" value="<?php echo $pv->id; ?>">
+                                    <input type="hidden" name="country_code" value="<?php echo $pv->code; ?>">
                                     <button id="mycountry_btn" class="btn btn-light btn-block" name="update_country_btn" type="button">UPDATE</button>
                                 </form>
                             </div>
@@ -170,6 +221,28 @@ import("apps/view/inc/navbar.php");
         <?php import("apps/view/inc/footer-credit.php"); ?>
     </div>
 </div>
+<script>
+    // Get all input elements by their ID
+    const inputs = document.querySelectorAll('input[type="number"]');
+
+    // Add a keyup event listener to each input element
+    inputs.forEach(input => {
+        input.addEventListener('blur', function () {
+            // Get the entered value from the input
+            const enteredValue = parseFloat(input.value);
+
+            // Check if the entered value is a valid number
+            if (isNaN(enteredValue)) {
+                // You can show an error message or perform other validation logic here
+                alert("Invalid input");
+                input.value = 0;
+            } else {
+                // If it's a valid number, set the corrected value back into the input field
+                input.value = enteredValue;
+            }
+        });
+    });
+</script>
 <?php
 import("apps/view/inc/footer.php");
 ?>

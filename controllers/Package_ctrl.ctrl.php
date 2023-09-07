@@ -18,7 +18,7 @@ class Package_ctrl
                 $_SESSION['msg'][] = "Name is required";
                 $ok = false;
             }
-            
+
             if (!isset($req->countries)) {
                 $_SESSION['msg'][] = "Please select at leaast 1 country";
                 $ok = false;
@@ -103,7 +103,7 @@ class Package_ctrl
                         exit;
                     }
                     $allItems[] = array(
-                        'item' => $item, 
+                        'item' => $item,
                         'qty' => $req->$item_qty,
                         'net_price' => $req->$net_price,
                         'cust_net_price' => $req->$cust_net_price
@@ -201,6 +201,7 @@ class Package_ctrl
                     $ok = false;
                 }
             }
+            $total_gram = 0;
             if ($ok == true) {
                 $arr['name'] = $req->name;
                 $arr['qty'] = 1;
@@ -218,6 +219,7 @@ class Package_ctrl
                 // $arr['parent_id'] = isset($req->parent_id)?intval($req->parent_id):0;
                 $allItems = [];
                 // myprint($req);
+                $db = new Dbobjects;
                 foreach ($req->items as $item) {
                     $item_qty = "qty" . $item;
                     $net_price = "net_price" . $item;
@@ -228,18 +230,32 @@ class Package_ctrl
                         exit;
                     }
                     $allItems[] = array(
-                        'item' => $item, 
+                        'item' => $item,
                         'qty' => $req->$item_qty,
                         'net_price' => $req->$net_price,
                         'cust_net_price' => $req->$cust_net_price
                     );
+                    $prod = (object)$db->showOne("select id,qty,unit from item where item.id = $item");
+                    $total_gram += calculate_gram($prod, $req->$item_qty);
                 }
+                $shipping_charges = [];
+                foreach ($req->countries as $ccode) {
+                    $shpcost = calculate_shipping_cost($db, $total_gram, $ccode);
+                    $shipping_charges[] = array(
+                        "ccode" => $ccode,
+                        "shipping_cost" => $shpcost
+                    );
+                }
+                $arr['shipping']=json_encode(array(
+                    'shipping' => $shipping_charges
+                ));
                 $arr['jsn'] = json_encode(array(
                     'items' => $allItems,
                     'countries' => $req->countries,
                 ));
                 $arr['is_active'] = isset($req->is_active) ? 1 : 0;
                 $arr['show_to_cust'] = isset($req->show_to_cust) ? 1 : 0;
+                // $arr['total_gram'] = $total_gram;
                 $itemObj = new Model('item');
                 $item_id = $req->product_id;
                 $update_reply = $itemObj->update($item_id, $arr);
