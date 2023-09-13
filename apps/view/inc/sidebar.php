@@ -42,6 +42,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Confirmed Withdrawal
                     </a>
+                    <a class="nav-link" href="/<?php echo home; ?>/withdrawal-requests/?remark=cancelled">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Cancelled Withdrawal
+                    </a>
                 <?php
                 }
                 ?>

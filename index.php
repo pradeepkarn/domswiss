@@ -302,7 +302,7 @@ switch ($path) {
         $req->my_id = USER['id'];
         $context['data'] = getMyCommissions($req, $data_limit = 5);
       }
-      import("apps/view/pages/all-commissions.php", $context);
+      import("apps/view/pages/my-commissions.php", $context);
       return;
     }
     if ($url[0] == "genology") {
@@ -795,7 +795,7 @@ switch ($path) {
 
       // $shr = my_all_share($userid = $_POST['user']);
       # find total life time amt
-      // $dbmny = new Dbobjects;
+      $dbmny = new Dbobjects;
   
       // $old_lifetime_pv = old_data($key_name="commission",$_POST['user']);
       // $pvctrl = new Pv_ctrl;
@@ -807,8 +807,9 @@ switch ($path) {
       // $direct_bonus += $pvctrl->my_lifetime_direct_bonus_sum($_POST['user']);
       // $lifetime_m =  $lifetime_m + $direct_m + $shr + $direct_bonus;
       // # find total paid amt
-      // $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'paid'";
-      // $cmsn = $dbmny->show($sql);
+      $sql = "select SUM(amt) as total_amt from credits where user_id = {$_POST['user']} and status = 'paid' and remark='requested'";
+      $cmsn_requested = $dbmny->showOne($sql)['total_amt'];
+      $cmsn_requested = $cmsn_requested?$cmsn_requested:0;
       // $total_paid = $cmsn[0]['total_amt'] ? $cmsn[0]['total_amt'] : 0;
       $amntwd = abs($_POST['money_out']);
       if ($amntwd < 10) {
@@ -816,7 +817,7 @@ switch ($path) {
         echo js_alert(msg_ssn(return: true));
         return false;
       }
-      if (($lifetime_m - $total_paid) >= $amntwd) {
+      if (($lifetime_m - ($total_paid+$cmsn_requested)) >= $amntwd) {
         // js_alert($lifetime_m);
         $wdobj = new Model('credits');
         $wd_arr['user_id'] = $_POST['user'];
@@ -824,9 +825,9 @@ switch ($path) {
         $wd_arr['amt'] = $amntwd;
         $saved =  $wdobj->store($wd_arr);
         if (intval($saved)) {
-          $_SESSION['msg'][] = "Amount withdrew successfully";
+          $_SESSION['msg'][] = "withdrew request submitted successfully";
         } else {
-          $_SESSION['msg'][] = "Amount not withdrew";
+          $_SESSION['msg'][] = "Request not submitted";
         }
       } else {
         $_SESSION['msg'][] = "Amount must not be greater than to your total unpaid/requested amount, also amount must not be negative";

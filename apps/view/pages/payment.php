@@ -112,16 +112,25 @@ import("apps/view/inc/navbar.php");
 
 
             <tbody>
-              <tr>
+              <tr class="text-end">
                 <td colspan="2"></td>
+                <td colspan=""><?php echo $total_pv; ?></td>
 
-                <td class="text-right" colspan="1"><?php echo $total_pv; ?></td>
-                <td colspan="">Total gram</td>
-                <td><?php echo $total_gm; ?> </td>
-                <td colspan="">Shipping Cost</td>
-                <td><?php echo calculate_shipping_cost(db:new Dbobjects, gram:$total_gm, ccode:USER['country_code']); ?> </td>
-                <td colspan="1">Total Amount</td>
+                <td class="text-right" colspan="4"></td>
+                <td colspan="1">Total Amount = </td>
                 <td><?php echo $total_amt; ?> </td>
+              </tr>
+              <tr class="text-end">
+                <td colspan="5"></td>
+                <td colspan="">Weight = </td>
+                <td colspan=""><?php echo $total_gm; ?> gm</td>
+                <td colspan="1">Shipping Cost =</td>
+                <td><?php echo $shpcost = calculate_shipping_cost(db:new Dbobjects, gram:$total_gm, ccode:USER['country_code']); ?> </td>
+              </tr>
+              <tr class="text-end">
+              <td colspan="7"></td>
+                <th>Final Amount = </th>
+                <th><?php echo $total_amt+$shpcost; ?></th>
               </tr>
             </tbody>
           </table>
@@ -200,6 +209,8 @@ import("apps/view/inc/navbar.php");
           </div>
 
           <input type="hidden" name="total_amount" value="<?php echo $total_amt; ?>">
+          <input type="hidden" name="total_gm" value="<?php echo $total_gm; ?>">
+          <input type="hidden" name="shipping_cost" value="<?php echo $shpcost; ?>">
 
           <input type="hidden" name="pv" value="<?php if (isset($pv)) echo $pv ?>">
         </form>

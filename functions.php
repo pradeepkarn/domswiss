@@ -148,7 +148,8 @@ function pkAjax_form($button, $data, $response, $event = 'click', $progress = fa
             }
         });
     }));
-    $('{$button}').on('{$event}', function() {
+    $('{$button}').on('{$event}', function(e) {
+      e.preventDefault();
       $('{$data}').submit();
   });
 });
@@ -1527,7 +1528,7 @@ function getMyCommissions($req, $data_limit = 5)
     $page_limit = "$current_page,$data_limit";
   }
   $db = new Dbobjects;
-  $tp = count($db->show("select id from ring_commissions where partner_id = $req->my_id"));
+  $tp = count($db->show("select id from ring_commissions where partner_id = '$req->my_id'"));
   if ($tp %  $data_limit == 0) {
     $tp = $tp / $data_limit;
   } else {
@@ -1964,7 +1965,7 @@ function last_active_date($user_id)
   return $lp;
 }
 
-function my_all_share($userid)
+function my_realtime_all_share($userid)
 {
   $shrobj = new Dbobjects;
   $shrobj->tableName = "shares";
@@ -1979,11 +1980,23 @@ function my_all_share($userid)
   }
   return $allshr;
 }
+function my_all_share($userid)
+{
+  $shrobj = new Dbobjects;
+  $amt = (object) $shrobj->showOne("select SUM(amt) as amt from credits where status='share' and user_id = '$userid'");
+  $allshr = $amt->amt!=null?$amt->amt:0.0;
+  return $allshr;
+}
 function my_all_share_count($userid)
 {
   $shrobj = new Dbobjects;
-  $shrobj->tableName = "shares";
-  $shre = $shrobj->filter(['user_id' => $userid, 'is_active' => 1]);
+  $endOfLastMonth = date('Y-m-t', strtotime('last month'));
+  
+  $sql = "SELECT * FROM shares WHERE user_id = '$userid' and is_active=1 and date_to <= '$endOfLastMonth';";
+  // echo $sql;
+  $shre = $shrobj->show($sql);
+  // $shrobj->tableName = "shares";
+  // $shre = $shrobj->filter(['user_id' => $userid, 'is_active' => 1]);
   $allshr = 0.0;
   $allshr_cnt = 0;
   foreach ($shre as $key => $srcnsn) {
@@ -1998,8 +2011,11 @@ function my_all_share_count($userid)
 function all_user_share_count()
 {
   $shrobj = new Dbobjects;
-  $shrobj->tableName = "shares";
-  $shre = $shrobj->filter(['is_active' => 1]);
+  $endOfLastMonth = date('Y-m-t', strtotime('last month'));
+  $sql = "SELECT * FROM shares WHERE is_active=1 and date_to <= '$endOfLastMonth';";
+  $shre = $shrobj->show($sql);
+  // $shrobj->tableName = "shares";
+  // $shre = $shrobj->filter(['is_active' => 1]);
   $allshr = 0.0;
   $allshr_cnt = 0;
   foreach ($shre as $key => $srcnsn) {

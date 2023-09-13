@@ -87,7 +87,7 @@ import("apps/view/inc/navbar.php");
                                                         <button data-bs-target="#orderstatusmodal<?php echo $value['id']; ?>" data-bs-toggle="modal" class="btn btn-secondary">Pending</button>
                                                         
                                                         <input type="hidden" class="dlt<?php echo $value['id']; ?>" name="dlt_id" value="<?php echo $value['id']; ?>">
-                                                        <button id="delete-this-orderBtn<?php echo $value['id']; ?>" class="btn btn-danger">Delete</button>
+                                                        <button type="button" id="delete-this-orderBtn<?php echo $value['id']; ?>" class="btn btn-danger">Delete</button>
                                                         <?php
                                                         pkAjax("#delete-this-orderBtn{$value['id']}", "/delete-this-order-ajax", ".dlt{$value['id']}", "#res");
                                                         ?>

@@ -87,7 +87,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Commission Paid</th>
 
-                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <th>Direct Bonus Paid</th>
                                         <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
 
@@ -105,7 +105,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
 
                                         <th>Commission Paid</th>
 
-                                        <!-- <th>Direct Bonus Paid</th> -->
+                                        <th>Direct Bonus Paid</th>
                                         <!-- <th>RV Paid</th> -->
                                         <th>Order date</th>
                                     </tr>
@@ -147,7 +147,7 @@ $tp = isset($context['data']->total_cmsn) ? $context['data']->total_cmsn : 5;
                                             <th><?php echo $value['ring']; ?></th>
 
                                             <th><?php echo $value['commission']; ?></th>
-                                            <!-- <th><?php //echo $value['direct_bonus']; ?></th> -->
+                                            <th><?php echo $value['direct_bonus']; ?></th>
                                             <!-- <th><?php //echo $value['rank_advance']; ?></th> -->
 
                                             <th><?php echo $value['created_at']; ?></th>

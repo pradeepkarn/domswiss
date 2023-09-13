@@ -31,18 +31,18 @@
         //     $crarr['amt'] = $sum;
         //     $db->store($crarr);
         // }
-        $direct_bonus = total_bonus($user_id);
-        $drb['user_id'] = $user_id;
-        $drb['status'] = 'direct_bonus';
-        $alrdbns = $db->filter_index($drb);
-        if (count($alrdbns) > 0) {
-            $drbid = obj($alrdbns[0]);
-            $drb['amt'] = $direct_bonus;
-            $db->update($drbid->id, $drb);
-        } else {
-            $drb['amt'] = $direct_bonus;
-            $db->store($drb);
-        }
+        // $direct_bonus = total_bonus($user_id);
+        // $drb['user_id'] = $user_id;
+        // $drb['status'] = 'direct_bonus';
+        // $alrdbns = $db->filter_index($drb);
+        // if (count($alrdbns) > 0) {
+        //     $drbid = obj($alrdbns[0]);
+        //     $drb['amt'] = $direct_bonus;
+        //     $db->update($drbid->id, $drb);
+        // } else {
+        //     $drb['amt'] = $direct_bonus;
+        //     $db->store($drb);
+        // }
         $position = getPosition($level = $rv_sum);
         $this->save_share_by_month($user_id, $position);
         return $position;
@@ -91,25 +91,25 @@
             }
         }
 
-        $db = new Dbobjects;
-        $db->tableName = 'shares';
-        $olddata = $db->filter(['user_id' => $user_id, 'date_from' => $date_from, 'date_to' => $date_to]);
-        if (count($olddata) > 0) {
-            $db->insertData['user_id'] = $user_id;
-            $db->insertData['date_from'] = $date_from;
-            $db->insertData['date_to'] = $date_to;
-            $db->insertData['jsn'] = $jsn;
-            $db->insertData['position'] = $position;
-            $db->insertData['updated_at'] = date('Y-m-d H:i:s');
-            $db->update();
-        } else {
-            $db->insertData['user_id'] = $user_id;
-            $db->insertData['date_from'] = $date_from;
-            $db->insertData['date_to'] = $date_to;
-            $db->insertData['jsn'] = $jsn;
-            $db->insertData['position'] = $position;
-            $db->insertData['updated_at'] = date('Y-m-d H:i:s');
-            $db->create();
-        }
+        // $db = new Dbobjects;
+        // $db->tableName = 'shares';
+        // $olddata = $db->filter(['user_id' => $user_id, 'date_from' => $date_from, 'date_to' => $date_to]);
+        // if (count($olddata) > 0) {
+        //     $db->insertData['user_id'] = $user_id;
+        //     $db->insertData['date_from'] = $date_from;
+        //     $db->insertData['date_to'] = $date_to;
+        //     $db->insertData['jsn'] = $jsn;
+        //     $db->insertData['position'] = $position;
+        //     $db->insertData['updated_at'] = date('Y-m-d H:i:s');
+        //     $db->update();
+        // } else {
+        //     $db->insertData['user_id'] = $user_id;
+        //     $db->insertData['date_from'] = $date_from;
+        //     $db->insertData['date_to'] = $date_to;
+        //     $db->insertData['jsn'] = $jsn;
+        //     $db->insertData['position'] = $position;
+        //     $db->insertData['updated_at'] = date('Y-m-d H:i:s');
+        //     $db->create();
+        // }
     }
 }

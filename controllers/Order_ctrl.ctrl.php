@@ -31,12 +31,40 @@ class Order_ctrl
                 $_SESSION['msg'][] = 'Your cart is empty!';
                 return;
             }
+
+            $total_gm = 0;
+            $cart_list = (object) ($dbobj)->show("select * from customer_order where status = 'cart' and user_id = '{$_SESSION['user_id']}'");
+            foreach ($cart_list as $cv) :
+              $cv = (object) $cv;
+              $item = (object) ($dbobj)->showOne("select id,jsn from item where id = '$cv->item_id'");
+              $phpobj = json_decode($item->jsn);
+              $gm = 0;
+              foreach ($phpobj->items as $pkey => $prd) {
+                $prod = (object) ($dbobj)->showOne("select id,qty,unit from item where id = '$prd->item'");
+                $gm += calculate_gram($prod, $cv->qty);
+                $total_gm += $gm;
+              }
+            endforeach;
+            $shipping_cost = calculate_shipping_cost(db:$dbobj, gram:$total_gm, ccode:USER['country_code']);
+            if (!isset($req->total_gm) || !isset($req->shipping_cost)) {
+                $_SESSION['msg'][] = 'Shiiping not defined';
+                $con->rollback();
+                return false;
+            }
+            if (!($total_gm==$req->total_gm && $shipping_cost==$req->shipping_cost)) {
+                $_SESSION['msg'][] = 'Shiiping cost mismatched, try again';
+                $con->rollback();
+                return false;
+            }
             try {
                 $total_amt = $dbobj->show($sql)[0]['total_amt'];
                 $total_pv = $dbobj->show($sql)[0]['total_pv'];
                 $total_rv = $dbobj->show($sql)[0]['total_rv'];
                 $total_db = $dbobj->show($sql)[0]['total_db'];
+                
                 $arr['amount'] = $total_amt;
+                $arr['shipping_cost'] = $shipping_cost;
+                $arr['total_gm'] = $total_gm;
                 $arr['pv'] = $total_pv;
                 $arr['rv'] = $total_rv;
                 $arr['direct_bonus'] = $total_db;

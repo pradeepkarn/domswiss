@@ -34,6 +34,14 @@ try {
 <script>
     document.getElementsByTagName('title')[0].innerText = "INVOICE-<?php echo $invoice != "" ? $invoice : $invid; ?>";
 </script>
+<style>
+    .p-2{
+        font-size: 10px;
+    }
+    .electronic-info{
+        font-size: 9px;
+    }
+</style>
 <div>
 
     <div id="layoutSidenav_content">
@@ -168,7 +176,7 @@ try {
                                             } ?>
 
                                         </tbody>
-                                        <tfoot class="card-footer">
+                                    
                                             <tr>
                                                 <td colspan="7" class="text-end border-bottom-0"><strong>Total:</strong></td>
                                                 <td colspan="1" class="text-end border-bottom-0"><?php echo $total_amt; ?></td>
@@ -176,7 +184,6 @@ try {
 
 
 
-                                        </tfoot>
                                         <tfoot class="border-dark">
                                             <?php
                                             if (count($cntr) > 0) {
@@ -221,6 +228,16 @@ try {
                                                 <th class="text-end">Total =</th>
                                                 <th class="text-end"><?php echo $total_amt; ?></th>
                                             </tr>
+                                            <tr>
+
+                                                <th class="text-end">Shipping cost =</th>
+                                                <th class="text-end"><?php echo $context->payment['shipping_cost']; ?></th>
+                                            </tr>
+                                            <tr>
+
+                                                <th class="text-end">Final =</th>
+                                                <th class="text-end"><?php echo $context->payment['shipping_cost']+$total_amt; ?></th>
+                                            </tr>
                                         </tfoot>
 
                                     </table>
@@ -235,7 +252,7 @@ try {
                     </main>
                     <!-- Footer -->
                     <footer class="text-center mt-4">
-                        <p class="text-1"><strong>NOTE :</strong> This is computer generated receipt and does not require physical signature.</p>
+                        <p class="text-1 electronic-info"><strong>NOTE :</strong> This is computer generated receipt and does not require physical signature.</p>
                         <div class="btn-group btn-group-sm d-print-none"> <a href="javascript:window.print()" class="btn btn-light border text-black-50 shadow-none mb-5"><i class="fa fa-print"></i> Print</a> <a href="javascript:window.print()" class="btn btn-light border text-black-50 shadow-none mb-5"><i class="fa fa-download"></i> Download</a> </div>
                     </footer>
                 </div>
