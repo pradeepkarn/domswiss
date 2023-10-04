@@ -6,3 +6,4 @@ config.php
 /.htaccess
 *.csv
 csvdata
+/*.log
