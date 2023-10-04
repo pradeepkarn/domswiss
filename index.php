@@ -170,6 +170,7 @@ switch ($path) {
       $db = new Dbobjects;
       $db->tableName = 'pk_user';
       $users = $db->all(limit: 100000);
+      return;
       $dms = new Domswiss_tree_ctrl;
       // Assuming $members is the original array you provided
       $members = [

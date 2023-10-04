@@ -82,7 +82,7 @@ class Dbobjects extends Dbh
         } else {
             $id = $this->id();
         }
-        echo $this->sql;
+        // echo $this->sql;
         $this->sql = "SELECT * FROM `$this->tableName` ORDER BY `$id` $ord LIMIT $limit";
         return $this->show($this->sql);
     }
