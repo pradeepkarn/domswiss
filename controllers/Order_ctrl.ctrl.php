@@ -105,7 +105,10 @@ class Order_ctrl
             try {
                 $dbobj->tableName = "payment";
                 $dbobj->insertData = $arr;
+                // myprint($dbobj->insertData);
+                // echo $dbobj->create_sql();
                 $pay = $dbobj->create();
+                // return;
                 if (intval($pay) && $arr['status'] == 'paid') {
                     $invid = generate_invoice_id($dbobj);
                     update_inv_if_not($pay, $invid, $dbobj);

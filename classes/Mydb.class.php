@@ -3,6 +3,7 @@ class Mydb extends Dbobjects
 {
     public function __construct($table)
     {
+        $this->conn = $this->conn();
         $this->tableName = $table;
     }
     public function allData($ord = '',$limit = 5)

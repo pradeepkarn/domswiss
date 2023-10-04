@@ -197,7 +197,7 @@ function generate_dummy_email($prefix = null)
 {
   return rand(1000, 9999) . "_" . uniqid($prefix) . "@example.com";
 }
-function bsmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
+function bsmodal($id = "", $title = "", $body = "", $btn_id='', $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
 {
   $str = "
 <div class='modal fade' id='$id' tabindex='-1' aria-hidden='true'>
@@ -219,7 +219,7 @@ $body
 </div>";
   return $str;
 }
-function popmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $close_btn_class = "")
+function popmodal($id = "", $title = "", $body = "", $btn_id='', $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $close_btn_class = "")
 {
   $str = "
 <div class='modal fade' id='$id' tabindex='-1' aria-hidden='true'>
@@ -1181,7 +1181,7 @@ function searchPhone($keyword = '+91')
 }
 
 
-function my_tree($ref, $depth = 1, $last_pmt)
+function my_tree($ref=0, $depth = 1, $last_pmt='')
 {
   if ($depth > 10) {
     return []; // Return an empty array if the maximum depth is reached
@@ -2210,12 +2210,12 @@ function calculate_gram(Object $item, float $qty)
   return $total_gm;
 }
 // calculate shipping charges if gram and country code is available
-function calculate_shipping_cost($db = new Dbobjects, $gram, $ccode)
+function calculate_shipping_cost($db = new Dbobjects, $gram=0, $ccode='')
 {
   $cost = 0;
   $shp = (object)$db->showOne("select shipping from countries where code = '$ccode';");
   if ($shp != '') {
-    $shpng = json_decode($shp->shipping);
+    $shpng = json_decode($shp->shipping??'[]');
     if (isset($shpng->shipping_cost)) {
       $shpcost = $shpng->shipping_cost;
       if ($gram >= 0 &&  $gram < 1001) {
